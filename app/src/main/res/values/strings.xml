@@ -8,4 +8,6 @@
     <string name="rain">Chuvoso</string>
     <string name="storm">Tempestade</string>
     <string name="confirm_declaration">Confirmo que esses dados são da minha fazenda</string>
+    <string name="clear">Limpar</string>
+    <string name="save">Salvar</string>
 </resources>
