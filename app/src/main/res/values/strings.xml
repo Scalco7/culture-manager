@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">cultureManager</string>
+    <string name="registerWeatherTitle">Registrar Clima</string>
+    <string name="register_weather_edit_text_label_name">Nome</string>
+    <string name="weather">Clima</string>
+    <string name="sunny">Ensolarado</string>
+    <string name="cloudy">Nublado</string>
+    <string name="rain">Chuvoso</string>
+    <string name="storm">Tempestade</string>
+    <string name="confirm_declaration">Confirmo que esses dados são da minha fazenda</string>
+</resources>
