@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="winds">
+        <item>@string/strongh</item>
+        <item>@string/moderate</item>
+        <item>@string/weak</item>
+    </string-array>
+</resources>

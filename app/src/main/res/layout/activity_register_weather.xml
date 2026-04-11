@@ -55,7 +55,7 @@
             android:labelFor="@id/radioGroupWeather"
             android:text="@string/weather"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextRegisterWeatherName" />
+            app:layout_constraintTop_toBottomOf="@+id/spinnerWind" />
 
         <RadioGroup
             android:id="@+id/radioGroupWeather"
@@ -68,25 +68,25 @@
             app:layout_constraintTop_toBottomOf="@+id/labelWeather">
 
             <RadioButton
-                android:id="@+id/radioButton"
+                android:id="@+id/radioButtonSunny"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/sunny" />
 
             <RadioButton
-                android:id="@+id/radioButton2"
+                android:id="@+id/radioButtonCloudy"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/cloudy" />
 
             <RadioButton
-                android:id="@+id/radioButton3"
+                android:id="@+id/radioButtonRain"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/rain" />
 
             <RadioButton
-                android:id="@+id/radioButton4"
+                android:id="@+id/radioButtonStorm"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/storm" />
@@ -135,6 +135,28 @@
             android:text="@string/confirm_declaration"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/radioGroupWeather" />
+
+        <TextView
+            android:id="@+id/labelWind"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/wind_strength"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextRegisterWeatherName" />
+
+        <Spinner
+            android:id="@+id/spinnerWind"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:entries="@array/winds"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/labelWind" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

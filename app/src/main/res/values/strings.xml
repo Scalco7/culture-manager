@@ -12,4 +12,8 @@
     <string name="save">Salvar</string>
     <string name="confirm">Confirmo</string>
     <string name="clean_weather_fields">Campos limpos</string>
+    <string name="wind_strength">Força do vento</string>
+    <string name="strongh">Forte</string>
+    <string name="moderate">Moderado</string>
+    <string name="weak">Fraco</string>
 </resources>
