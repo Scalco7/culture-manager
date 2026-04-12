@@ -16,4 +16,5 @@
     <string name="strongh">Forte</string>
     <string name="moderate">Moderado</string>
     <string name="weak">Fraco</string>
+    <string name="weathers">Climas</string>
 </resources>

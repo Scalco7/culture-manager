@@ -13,6 +13,9 @@
         android:theme="@style/Theme.CultureManager">
         <activity
             android:name=".RegisterWeatherActivity"
+            android:exported="false" />
+        <activity
+            android:name=".WeatherActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
