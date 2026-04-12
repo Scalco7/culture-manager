@@ -85,6 +85,6 @@ public class WeatherAdapter extends BaseAdapter {
 
         holder.textViewWind.setText(windStregth);
 
-        return null;
+        return view;
     }
 }
