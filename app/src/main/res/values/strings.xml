@@ -20,4 +20,9 @@
     <string name="weathers_register">Registro de Climas</string>
     <string name="about">Sobre</string>
     <string name="create">Criar</string>
+    <string name="utfpr">UTFPR</string>
+    <string name="felipe">Felipe Maciel Scalco</string>
+    <string name="felipe_email">fscalco7@gmail.com</string>
+    <string name="felipe_course">Engenharia de Software</string>
+    <string name="app_description">Aplicativo voltado apra o agronegócio, para ajudar agricultores a tomarem conta das suas fazendas.</string>
 </resources>
