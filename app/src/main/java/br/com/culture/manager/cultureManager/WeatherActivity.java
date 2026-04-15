@@ -36,6 +36,8 @@ public class WeatherActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weather);
+
+        setTitle(getString(R.string.weathers_register));
         listView = findViewById(R.id.listViewWeathers);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){

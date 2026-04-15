@@ -22,6 +22,8 @@ public class RegisterWeatherActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_weather);
 
+        setTitle(getString(R.string.registerWeatherTitle));
+
         editTextRegisterWeatherName = findViewById(R.id.editTextRegisterWeatherName);
         radioGroupWeather = findViewById(R.id.radioGroupWeather);
         checkBoxConfirm = findViewById(R.id.checkBoxConfirm);

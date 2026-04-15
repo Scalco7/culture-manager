@@ -17,5 +17,6 @@
     <string name="moderate">Moderado</string>
     <string name="weak">Fraco</string>
     <string name="weathers">Climas</string>
+    <string name="weathers_register">Registro de Climas</string>
     <string name="about">Sobre</string>
 </resources>
