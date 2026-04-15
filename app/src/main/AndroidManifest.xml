@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CultureManager">
         <activity
+            android:name=".AboutActivity"
+            android:exported="false" />
+        <activity
             android:name=".RegisterWeatherActivity"
             android:exported="false" />
         <activity

@@ -1,5 +1,6 @@
 package br.com.culture.manager.cultureManager;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -65,5 +66,10 @@ public class WeatherActivity extends AppCompatActivity {
 
         weatherAdapter = new WeatherAdapter(this, weathers);
         listView.setAdapter(weatherAdapter);
+    }
+
+    public void goToAbout(View view) {
+        Intent intent = new Intent(this, AboutActivity.class);
+        startActivity(intent);
     }
 }
