@@ -13,10 +13,11 @@
     <string name="confirm">Confirmo</string>
     <string name="clean_weather_fields">Campos limpos</string>
     <string name="wind_strength">Força do vento</string>
-    <string name="strongh">Forte</string>
+    <string name="strong">Forte</string>
     <string name="moderate">Moderado</string>
     <string name="weak">Fraco</string>
     <string name="weathers">Climas</string>
     <string name="weathers_register">Registro de Climas</string>
     <string name="about">Sobre</string>
+    <string name="create">Criar</string>
 </resources>

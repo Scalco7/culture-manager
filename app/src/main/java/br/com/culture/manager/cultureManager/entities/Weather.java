@@ -12,11 +12,11 @@ public class Weather {
 
     private LocalDateTime date;
 
-    public Weather(WindStrength windStrength, String name, String weather, LocalDateTime date) {
+    public Weather(WindStrength windStrength, String name, String weather) {
         this.windStrength = windStrength;
         this.name = name;
         this.weather = weather;
-        this.date = date;
+        this.date = LocalDateTime.now();
     }
 
     public String getName() {

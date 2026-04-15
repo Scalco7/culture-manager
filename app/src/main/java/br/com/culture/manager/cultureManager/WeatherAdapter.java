@@ -73,7 +73,7 @@ public class WeatherAdapter extends BaseAdapter {
         String windStregth = "";
         switch (weather.getWindStrength()){
             case STRONG:
-                windStregth = context.getText(R.string.strongh).toString();
+                windStregth = context.getText(R.string.strong).toString();
                 break;
             case MODERATE:
                 windStregth = context.getText(R.string.moderate).toString();

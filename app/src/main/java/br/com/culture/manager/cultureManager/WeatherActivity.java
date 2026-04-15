@@ -7,9 +7,12 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import br.com.culture.manager.cultureManager.entities.Weather;
@@ -21,16 +24,34 @@ public class WeatherActivity extends AppCompatActivity {
     private ListView listView;
     private WeatherAdapter weatherAdapter;
 
-    private Weather mockWeather0 = new Weather(WindStrength.STRONG, "Clima de segunda", "Tempestade", LocalDateTime.now());
-    private Weather mockWeather1 = new Weather(WindStrength.STRONG, "Clima de terça", "Ensolarado", LocalDateTime.now());
-    private Weather mockWeather2 = new Weather(WindStrength.STRONG, "Ventando", "Nublado", LocalDateTime.now());
-    private Weather mockWeather3 = new Weather(WindStrength.WEAK, "Dia do gado", "Chuvoso", LocalDateTime.now());
-    private Weather mockWeather4 = new Weather(WindStrength.MODERATE, "Dia de plantar", "Chuvoso", LocalDateTime.now());
-    private Weather mockWeather5 = new Weather(WindStrength.WEAK, "Friozinho", "Nublado", LocalDateTime.now());
-    private Weather mockWeather6 = new Weather(WindStrength.WEAK, "Solzão", "Ensolarado", LocalDateTime.now());
-    private Weather mockWeather7 = new Weather(WindStrength.MODERATE, "Céu aberto", "Ensolarado", LocalDateTime.now());
-    private Weather mockWeather8 = new Weather(WindStrength.MODERATE, "Tudo Junto", "Chuvoso", LocalDateTime.now());
-    private Weather mockWeather9 = new Weather(WindStrength.STRONG, "Chuva", "Tempestade", LocalDateTime.now());
+    private final ActivityResultLauncher<Intent> launcherRegisterWeather = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if (result.getResultCode() != RESULT_OK) {
+                        return;
+                    }
+
+                    Intent data = result.getData();
+                    if (data == null) {
+                        return;
+                    }
+
+                    Bundle bundle = data.getExtras();
+                    if (bundle == null) {
+                        return;
+                    }
+
+                    String name = bundle.getString(RegisterWeatherActivity.NAME_KEY);
+                    String weather = bundle.getString(RegisterWeatherActivity.WEATHER_KEY);
+                    String windStrength = bundle.getString(RegisterWeatherActivity.WIND_STRENGTH_KEY);
+
+                    Weather weatherEntity = new Weather(WindStrength.valueOf(windStrength), name, weather);
+
+                    weathers.add(weatherEntity);
+                    weatherAdapter.notifyDataSetChanged();
+                }
+            });
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +61,7 @@ public class WeatherActivity extends AppCompatActivity {
         setTitle(getString(R.string.weathers_register));
         listView = findViewById(R.id.listViewWeathers);
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Weather weather = (Weather) adapterView.getItemAtPosition(i);
@@ -49,23 +70,6 @@ public class WeatherActivity extends AppCompatActivity {
             }
         });
 
-        int importantForAccessibility = listView.getImportantForAccessibility();
-
-        populateWeathers();
-    }
-
-    private void populateWeathers(){
-        weathers.add(mockWeather0);
-        weathers.add(mockWeather1);
-        weathers.add(mockWeather2);
-        weathers.add(mockWeather3);
-        weathers.add(mockWeather4);
-        weathers.add(mockWeather5);
-        weathers.add(mockWeather6);
-        weathers.add(mockWeather7);
-        weathers.add(mockWeather8);
-        weathers.add(mockWeather9);
-
         weatherAdapter = new WeatherAdapter(this, weathers);
         listView.setAdapter(weatherAdapter);
     }
@@ -73,5 +77,10 @@ public class WeatherActivity extends AppCompatActivity {
     public void goToAbout(View view) {
         Intent intent = new Intent(this, AboutActivity.class);
         startActivity(intent);
+    }
+
+    public void goToCreate(View view) {
+        Intent intent = new Intent(this, RegisterWeatherActivity.class);
+        launcherRegisterWeather.launch(intent);
     }
 }

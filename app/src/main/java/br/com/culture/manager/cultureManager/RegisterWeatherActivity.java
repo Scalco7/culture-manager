@@ -1,7 +1,9 @@
 package br.com.culture.manager.cultureManager;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioGroup;
@@ -10,11 +12,17 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import br.com.culture.manager.cultureManager.enums.WindStrength;
+
 public class RegisterWeatherActivity extends AppCompatActivity {
-    EditText editTextRegisterWeatherName;
-    RadioGroup radioGroupWeather;
-    CheckBox checkBoxConfirm;
-    Spinner spinnerWindStrength;
+    public static final String NAME_KEY = "name";
+    public static final String WEATHER_KEY = "weather";
+    public static final String WIND_STRENGTH_KEY = "windStrength";
+
+    private EditText editTextRegisterWeatherName;
+    private RadioGroup radioGroupWeather;
+    private CheckBox checkBoxConfirm;
+    private Spinner spinnerWindStrength;
 
 
     @Override
@@ -47,9 +55,17 @@ public class RegisterWeatherActivity extends AppCompatActivity {
             return;
         }
 
+        int windStrengthPosition = spinnerWindStrength.getSelectedItemPosition();
+
+        if(windStrengthPosition == AdapterView.INVALID_POSITION){
+            Toast.makeText(this, "Selecione a força do vento", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        WindStrength windStrength = WindStrength.values()[windStrengthPosition];
 
 
-        if(radioGroupWeather.getCheckedRadioButtonId() == -1){
+        if(radioGroupWeather.getCheckedRadioButtonId() == AdapterView.INVALID_POSITION){
             Toast.makeText(this, "Selecione o clima", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -79,14 +95,14 @@ public class RegisterWeatherActivity extends AppCompatActivity {
             return;
         }
 
-        String windStrength = spinnerWindStrength.getSelectedItem().toString();
 
-        if(windStrength.isEmpty()){
-            Toast.makeText(this, "Selecione a força do vento", Toast.LENGTH_SHORT).show();
-            return;
-        }
+        Intent returnIntent = new Intent();
 
-        Toast.makeText(this, "Nome: " + name + "\nClima: " + weatherSelected + "\nForça do vento: " + windStrength, Toast.LENGTH_SHORT).show();
+        returnIntent.putExtra(NAME_KEY, name);
+        returnIntent.putExtra(WEATHER_KEY, weatherSelected);
+        returnIntent.putExtra(WIND_STRENGTH_KEY, windStrength.name());
 
+        setResult(RESULT_OK, returnIntent);
+        finish();
     }
 }

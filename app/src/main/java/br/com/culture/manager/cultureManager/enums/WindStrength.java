@@ -4,4 +4,6 @@ public enum WindStrength {
     STRONG(),
     MODERATE(),
     WEAK();
+
+
 }
