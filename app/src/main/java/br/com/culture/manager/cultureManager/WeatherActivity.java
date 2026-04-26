@@ -2,6 +2,8 @@ package br.com.culture.manager.cultureManager;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -11,6 +13,7 @@ import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
@@ -74,12 +77,35 @@ public class WeatherActivity extends AppCompatActivity {
         listView.setAdapter(weatherAdapter);
     }
 
-    public void goToAbout(View view) {
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.weather_options, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int itemId = item.getItemId();
+
+        if (itemId == R.id.menuItemAbout) {
+            goToAbout();
+            return true;
+        }
+
+        if (itemId == R.id.menuItemCreate) {
+            goToCreate();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    public void goToAbout() {
         Intent intent = new Intent(this, AboutActivity.class);
         startActivity(intent);
     }
 
-    public void goToCreate(View view) {
+    public void goToCreate() {
         Intent intent = new Intent(this, RegisterWeatherActivity.class);
         launcherRegisterWeather.launch(intent);
     }
