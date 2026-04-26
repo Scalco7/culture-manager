@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">cultureManager</string>
     <string name="registerWeatherTitle">Registrar Clima</string>
+    <string name="edit_weather_title">Editar Clima</string>
     <string name="register_weather_edit_text_label_name">Nome</string>
     <string name="weather">Clima</string>
     <string name="sunny">Ensolarado</string>
@@ -25,4 +26,6 @@
     <string name="felipe_email">fscalco7@gmail.com</string>
     <string name="felipe_course">Engenharia de Software</string>
     <string name="app_description">Aplicativo voltado apra o agronegócio, para ajudar agricultores a tomarem conta das suas fazendas.</string>
+    <string name="remove">Remover</string>
+    <string name="edit">Editar</string>
 </resources>
