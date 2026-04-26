@@ -2,7 +2,8 @@ package br.com.culture.manager.cultureManager;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -10,6 +11,7 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import br.com.culture.manager.cultureManager.enums.WindStrength;
@@ -27,8 +29,6 @@ public class RegisterWeatherActivity extends AppCompatActivity {
     private RadioGroup radioGroupWeather;
     private CheckBox checkBoxConfirm;
     private Spinner spinnerWindStrength;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,7 +80,30 @@ public class RegisterWeatherActivity extends AppCompatActivity {
         }
     }
 
-    public void cleanFields(View view) {
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.register_weather_options, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int itemId = item.getItemId();
+
+        if (itemId == R.id.menuItemSave) {
+            onSave();
+            return true;
+        }
+
+        if (itemId == R.id.menuItemClear) {
+            cleanFields();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    public void cleanFields() {
         editTextRegisterWeatherName.setText("");
         radioGroupWeather.clearCheck();
         checkBoxConfirm.setChecked(false);
@@ -89,7 +112,7 @@ public class RegisterWeatherActivity extends AppCompatActivity {
         Toast.makeText(this, getText(R.string.clean_weather_fields), Toast.LENGTH_SHORT).show();
     }
 
-    public void onSave(View view) {
+    public void onSave() {
         String name = editTextRegisterWeatherName.getText().toString();
 
         if (name.isEmpty()) {
