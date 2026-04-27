@@ -13,13 +13,16 @@
         android:theme="@style/Theme.CultureManager">
         <activity
             android:name=".AboutActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".WeatherActivity"/>
         <activity
             android:name=".RegisterWeatherActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".WeatherActivity"/>
         <activity
             android:name=".WeatherActivity"
-            android:exported="true">
+            android:exported="true"
+            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
