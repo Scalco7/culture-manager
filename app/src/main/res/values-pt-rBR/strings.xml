@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="registerWeatherTitle">Registrar Clima</string>
+    <string name="edit_weather_title">Editar Clima</string>
+    <string name="register_weather_edit_text_label_name">Nome</string>
+    <string name="weather">Clima</string>
+    <string name="sunny">Ensolarado</string>
+    <string name="cloudy">Nublado</string>
+    <string name="rain">Chuvoso</string>
+    <string name="storm">Tempestade</string>
+    <string name="confirm_declaration">Confirmo que esses dados são da minha fazenda</string>
+    <string name="clear">Limpar</string>
+    <string name="save">Salvar</string>
+    <string name="confirm">Confirmo</string>
+    <string name="clean_weather_fields">Campos limpos</string>
+    <string name="wind_strength">Força do vento</string>
+    <string name="strong">Forte</string>
+    <string name="moderate">Moderado</string>
+    <string name="weak">Fraco</string>
+    <string name="weathers">Climas</string>
+    <string name="weathers_register">Registro de Climas</string>
+    <string name="about">Sobre</string>
+    <string name="create">Criar</string>
+    <string name="felipe_course">Engenharia de Software</string>
+    <string name="app_description">Aplicativo voltado apra o agronegócio, para ajudar agricultores a tomarem conta das suas fazendas.</string>
+    <string name="remove">Remover</string>
+    <string name="edit">Editar</string>
+    <string name="olders">Mais Antigos</string>
+    <string name="fill_with_name">Preencha o nome</string>
+    <string name="select_wind_strength">Selecione a força do vento</string>
+    <string name="select_weather">Selecione o clima</string>
+    <string name="confim_the_declaration">Confirme a declaração</string>
+</resources>

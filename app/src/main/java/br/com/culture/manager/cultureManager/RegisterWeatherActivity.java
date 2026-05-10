@@ -116,14 +116,15 @@ public class RegisterWeatherActivity extends AppCompatActivity {
         String name = editTextRegisterWeatherName.getText().toString();
 
         if (name.isEmpty()) {
-            Toast.makeText(this, "Preencha o nome", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,  getText(R.string.fill_with_name), Toast.LENGTH_SHORT).show();
             return;
         }
+
 
         int windStrengthPosition = spinnerWindStrength.getSelectedItemPosition();
 
         if (windStrengthPosition == AdapterView.INVALID_POSITION) {
-            Toast.makeText(this, "Selecione a força do vento", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getText(R.string.select_wind_strength), Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -131,7 +132,7 @@ public class RegisterWeatherActivity extends AppCompatActivity {
 
 
         if (radioGroupWeather.getCheckedRadioButtonId() == AdapterView.INVALID_POSITION) {
-            Toast.makeText(this, "Selecione o clima", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getText(R.string.select_weather), Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -151,12 +152,12 @@ public class RegisterWeatherActivity extends AppCompatActivity {
         }
 
         if (weatherSelected.isEmpty()) {
-            Toast.makeText(this, "Selecione o clima", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getText(R.string.select_weather), Toast.LENGTH_SHORT).show();
             return;
         }
 
         if (!checkBoxConfirm.isChecked()) {
-            Toast.makeText(this, "Confirme a declaração", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getText(R.string.confim_the_declaration), Toast.LENGTH_SHORT).show();
             return;
         }
 
