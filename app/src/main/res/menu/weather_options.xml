@@ -10,4 +10,8 @@
         android:icon="@drawable/outline_add_circle_outline_24"
         android:title="@string/create"
         app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/menuItemSort"
+        android:checkable="true"
+        android:title="@string/olders" />
 </menu>

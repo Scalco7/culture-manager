@@ -1,6 +1,7 @@
 package br.com.culture.manager.cultureManager;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -21,11 +22,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.ActionMode;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 import br.com.culture.manager.cultureManager.entities.Weather;
 import br.com.culture.manager.cultureManager.enums.WindStrength;
 
 public class WeatherActivity extends AppCompatActivity {
+    public static final String PREFERENCES_KEY = "preferences";
+    public static final String SORT_BY_OLDERS_KEY = "sortByOlders";
 
     private final ArrayList<Weather> weathers = new ArrayList<>();
     private ListView listView;
@@ -33,6 +37,8 @@ public class WeatherActivity extends AppCompatActivity {
     private View viewSelected;
     private Drawable backgroundDrawableSelected;
     private ActionMode actionMode;
+    private boolean sortByOlder = false;
+
     private ActionMode.Callback actionModeCallback = new ActionMode.Callback() {
         @Override
         public boolean onCreateActionMode(ActionMode mode, Menu menu) {
@@ -68,7 +74,7 @@ public class WeatherActivity extends AppCompatActivity {
         public void onDestroyActionMode(ActionMode mode) {
             selectedPosition = -1;
 
-            if(viewSelected != null){
+            if (viewSelected != null) {
                 viewSelected.setBackground(backgroundDrawableSelected);
             }
 
@@ -107,6 +113,10 @@ public class WeatherActivity extends AppCompatActivity {
                     Weather weatherEntity = new Weather(WindStrength.valueOf(windStrength), name, weather);
 
                     weathers.add(weatherEntity);
+
+                    Comparator<Weather> comparator = sortByOlder ? Weather.weatherAsc() : Weather.weatherDesc();
+                    weathers.sort(comparator);
+
                     weatherAdapter.notifyDataSetChanged();
                 }
             });
@@ -117,7 +127,7 @@ public class WeatherActivity extends AppCompatActivity {
                 public void onActivityResult(ActivityResult result) {
                     int position = selectedPosition;
 
-                    if(actionMode!= null){
+                    if (actionMode != null) {
                         actionMode.finish();
                     }
 
@@ -145,6 +155,9 @@ public class WeatherActivity extends AppCompatActivity {
                     selectedWeather.setWeather(weather);
                     selectedWeather.setWindStrength(WindStrength.valueOf(windStrength));
 
+                    Comparator<Weather> comparator = sortByOlder ? Weather.weatherAsc() : Weather.weatherDesc();
+                    weathers.sort(comparator);
+
                     weatherAdapter.notifyDataSetChanged();
                 }
             });
@@ -156,6 +169,7 @@ public class WeatherActivity extends AppCompatActivity {
 
         setTitle(getString(R.string.weathers_register));
         listView = findViewById(R.id.listViewWeathers);
+        getPreferences();
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -169,7 +183,7 @@ public class WeatherActivity extends AppCompatActivity {
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int position, long l) {
-                if(actionMode != null){
+                if (actionMode != null) {
                     return false;
                 }
 
@@ -187,7 +201,6 @@ public class WeatherActivity extends AppCompatActivity {
             }
         });
 
-
         weatherAdapter = new WeatherAdapter(this, weathers);
         listView.setAdapter(weatherAdapter);
         registerForContextMenu(listView);
@@ -196,6 +209,13 @@ public class WeatherActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.weather_options, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        MenuItem item = menu.findItem(R.id.menuItemSort);
+        item.setChecked(sortByOlder);
         return true;
     }
 
@@ -211,6 +231,16 @@ public class WeatherActivity extends AppCompatActivity {
         if (itemId == R.id.menuItemCreate) {
             goToCreate();
             return true;
+        }
+
+        if (itemId == R.id.menuItemSort) {
+            sortByOlder = !sortByOlder;
+            savePreferences();
+            item.setChecked(sortByOlder);
+
+            Comparator<Weather> comparator = sortByOlder ? Weather.weatherAsc() : Weather.weatherDesc();
+            weathers.sort(comparator);
+            weatherAdapter.notifyDataSetChanged();
         }
 
         return super.onOptionsItemSelected(item);
@@ -244,5 +274,17 @@ public class WeatherActivity extends AppCompatActivity {
         Intent intent = new Intent(this, RegisterWeatherActivity.class);
         intent.putExtra(RegisterWeatherActivity.SCREEN_MODE_KEY, RegisterWeatherActivity.SCREEN_MODE_REGISTER);
         launcherRegisterWeather.launch(intent);
+    }
+
+    private void getPreferences() {
+        SharedPreferences sharedPreferences = getSharedPreferences(PREFERENCES_KEY, MODE_PRIVATE);
+        sortByOlder = sharedPreferences.getBoolean(SORT_BY_OLDERS_KEY, sortByOlder);
+    }
+
+    private void savePreferences() {
+        SharedPreferences sharedPreferences = getSharedPreferences(PREFERENCES_KEY, MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean(SORT_BY_OLDERS_KEY, sortByOlder);
+        editor.apply();
     }
 }

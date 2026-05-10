@@ -1,6 +1,7 @@
 package br.com.culture.manager.cultureManager.entities;
 
 import java.time.LocalDateTime;
+import java.util.Comparator;
 
 import br.com.culture.manager.cultureManager.enums.WindStrength;
 
@@ -49,5 +50,23 @@ public class Weather {
 
     public void setWindStrength(WindStrength windStrength) {
         this.windStrength = windStrength;
+    }
+
+    public static Comparator<Weather> weatherAsc() {
+        return new Comparator<Weather>() {
+            @Override
+            public int compare(Weather w1, Weather w2) {
+                return w1.getDate().compareTo(w2.getDate());
+            }
+        };
+    }
+
+    public static Comparator<Weather> weatherDesc() {
+        return new Comparator<Weather>() {
+            @Override
+            public int compare(Weather w1, Weather w2) {
+                return w2.getDate().compareTo(w1.getDate());
+            }
+        };
     }
 }
