@@ -1,9 +1,11 @@
 package br.com.culture.manager.cultureManager;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.view.ContextMenu;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -16,6 +18,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.view.ActionMode;
 
 import java.util.ArrayList;
 
@@ -27,6 +30,55 @@ public class WeatherActivity extends AppCompatActivity {
     private final ArrayList<Weather> weathers = new ArrayList<>();
     private ListView listView;
     private WeatherAdapter weatherAdapter;
+    private View viewSelected;
+    private Drawable backgroundDrawableSelected;
+    private ActionMode actionMode;
+    private ActionMode.Callback actionModeCallback = new ActionMode.Callback() {
+        @Override
+        public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+            MenuInflater inflater = mode.getMenuInflater();
+            inflater.inflate(R.menu.weather_item_selected_options, menu);
+            return true;
+        }
+
+        @Override
+        public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+            return false;
+        }
+
+        @Override
+        public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+            int itemId = item.getItemId();
+
+            if (itemId == R.id.menuItemEdit) {
+                goToEdit();
+                return true;
+            }
+
+            if (itemId == R.id.menuItemRemove) {
+                removeWeather();
+                mode.finish();
+                return true;
+            }
+
+            return false;
+        }
+
+        @Override
+        public void onDestroyActionMode(ActionMode mode) {
+            selectedPosition = -1;
+
+            if(viewSelected != null){
+                viewSelected.setBackground(backgroundDrawableSelected);
+            }
+
+            actionMode = null;
+            viewSelected = null;
+            backgroundDrawableSelected = null;
+            listView.setEnabled(true);
+            weatherAdapter.notifyDataSetChanged();
+        }
+    };
 
     private int selectedPosition = -1;
 
@@ -64,7 +116,11 @@ public class WeatherActivity extends AppCompatActivity {
                 @Override
                 public void onActivityResult(ActivityResult result) {
                     int position = selectedPosition;
-                    selectedPosition = -1;
+
+                    if(actionMode!= null){
+                        actionMode.finish();
+                    }
+
                     if (result.getResultCode() != RESULT_OK) {
                         return;
                     }
@@ -110,6 +166,28 @@ public class WeatherActivity extends AppCompatActivity {
             }
         });
 
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int position, long l) {
+                if(actionMode != null){
+                    return false;
+                }
+
+                selectedPosition = position;
+
+                viewSelected = view;
+                backgroundDrawableSelected = view.getBackground();
+
+                view.setBackgroundColor(Color.LTGRAY);
+
+                listView.setEnabled(false);
+
+                actionMode = startSupportActionMode(actionModeCallback);
+                return false;
+            }
+        });
+
+
         weatherAdapter = new WeatherAdapter(this, weathers);
         listView.setAdapter(weatherAdapter);
         registerForContextMenu(listView);
@@ -138,40 +216,13 @@ public class WeatherActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-        super.onCreateContextMenu(menu, v, menuInfo);
-        getMenuInflater().inflate(R.menu.weather_item_selected_options, menu);
-    }
+    private void removeWeather() {
+        weathers.remove(selectedPosition);
 
-    @Override
-    public boolean onContextItemSelected(@NonNull MenuItem item) {
-        int itemId = item.getItemId();
-
-        AdapterView.AdapterContextMenuInfo info;
-        info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-        int position = info.position;
-
-        if (itemId == R.id.menuItemEdit) {
-            goToEdit(position);
-            return true;
-        }
-
-        if (itemId == R.id.menuItemRemove) {
-            removeWeather(position);
-            return true;
-        }
-
-        return super.onContextItemSelected(item);
-    }
-
-    private void removeWeather(int position) {
-        weathers.remove(position);
         weatherAdapter.notifyDataSetChanged();
     }
 
-    private void goToEdit(int position) {
-        selectedPosition = position;
+    private void goToEdit() {
         Intent intent = new Intent(this, RegisterWeatherActivity.class);
 
         Weather selectedWeather = weathers.get(selectedPosition);
