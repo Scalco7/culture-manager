@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CultureManager">
         <activity
+            android:name=".entities.SettingsActivity"
+            android:exported="false" />
+        <activity
             android:name=".HomeActivity"
             android:exported="true">
             <intent-filter>
@@ -31,7 +34,7 @@
         <activity
             android:name=".WeatherActivity"
             android:exported="false"
-            android:parentActivityName=".HomeActivity"/>
+            android:parentActivityName=".HomeActivity" />
     </application>
 
 </manifest>

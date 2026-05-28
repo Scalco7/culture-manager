@@ -36,5 +36,6 @@
     <string name="hello">Olá, bem vindo</string>
     <string name="hello_phrase">Vamos começar dando um nome para a sua fazenda</string>
     <string name="farm_name">Nome da Fazenda</string>
+    <string name="farm_data">Dados da Fazenda</string>
 
 </resources>
