@@ -33,9 +33,10 @@
     <string name="confim_the_declaration">Confirm the statement</string>
     <string name="select_weather">Select the weather</string>
     <string name="select_wind_strength">Select wind strength</string>
-    <string name="hello">Olá, bem vindo</string>
-    <string name="hello_phrase">Vamos começar dando um nome para a sua fazenda</string>
-    <string name="farm_name">Nome da Fazenda</string>
-    <string name="farm_data">Dados da Fazenda</string>
+    <string name="continue_text">Continue</string>
+    <string name="farm_data">Farm Details</string>
+    <string name="farm_name">Farm Name</string>
+    <string name="hello">Hello</string>
+    <string name="hello_phrase">Let\'s start by choosing a name for your farm</string>
 
 </resources>
