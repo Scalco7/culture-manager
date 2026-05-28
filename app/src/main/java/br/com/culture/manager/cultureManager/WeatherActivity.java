@@ -223,11 +223,6 @@ public class WeatherActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int itemId = item.getItemId();
 
-        if (itemId == R.id.menuItemAbout) {
-            goToAbout();
-            return true;
-        }
-
         if (itemId == R.id.menuItemCreate) {
             goToCreate();
             return true;
@@ -263,11 +258,6 @@ public class WeatherActivity extends AppCompatActivity {
         intent.putExtra(WeatherFormActivity.WIND_STRENGTH_KEY, selectedWeather.getWindStrength().name());
 
         launcherEditWeather.launch(intent);
-    }
-
-    private void goToAbout() {
-        Intent intent = new Intent(this, AboutActivity.class);
-        startActivity(intent);
     }
 
     private void goToCreate() {

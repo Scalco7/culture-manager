@@ -3,9 +3,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/menuItemAbout"
-        android:title="@string/about" />
-    <item
         android:id="@+id/menuItemCreate"
         android:icon="@drawable/outline_add_circle_outline_24"
         android:title="@string/create"
