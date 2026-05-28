@@ -16,7 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import br.com.culture.manager.cultureManager.enums.WindStrength;
 
-public class RegisterWeatherActivity extends AppCompatActivity {
+public class WeatherFormActivity extends AppCompatActivity {
     public static final String NAME_KEY = "name";
     public static final String WEATHER_KEY = "weather";
     public static final String WIND_STRENGTH_KEY = "windStrength";
@@ -33,7 +33,7 @@ public class RegisterWeatherActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register_weather);
+        setContentView(R.layout.activity_weather_form);
 
         editTextRegisterWeatherName = findViewById(R.id.editTextRegisterWeatherName);
         radioGroupWeather = findViewById(R.id.radioGroupWeather);

@@ -106,9 +106,9 @@ public class WeatherActivity extends AppCompatActivity {
                         return;
                     }
 
-                    String name = bundle.getString(RegisterWeatherActivity.NAME_KEY);
-                    String weather = bundle.getString(RegisterWeatherActivity.WEATHER_KEY);
-                    String windStrength = bundle.getString(RegisterWeatherActivity.WIND_STRENGTH_KEY);
+                    String name = bundle.getString(WeatherFormActivity.NAME_KEY);
+                    String weather = bundle.getString(WeatherFormActivity.WEATHER_KEY);
+                    String windStrength = bundle.getString(WeatherFormActivity.WIND_STRENGTH_KEY);
 
                     Weather weatherEntity = new Weather(WindStrength.valueOf(windStrength), name, weather);
 
@@ -145,9 +145,9 @@ public class WeatherActivity extends AppCompatActivity {
                         return;
                     }
 
-                    String name = bundle.getString(RegisterWeatherActivity.NAME_KEY);
-                    String weather = bundle.getString(RegisterWeatherActivity.WEATHER_KEY);
-                    String windStrength = bundle.getString(RegisterWeatherActivity.WIND_STRENGTH_KEY);
+                    String name = bundle.getString(WeatherFormActivity.NAME_KEY);
+                    String weather = bundle.getString(WeatherFormActivity.WEATHER_KEY);
+                    String windStrength = bundle.getString(WeatherFormActivity.WIND_STRENGTH_KEY);
 
                     Weather selectedWeather = weathers.get(position);
 
@@ -253,14 +253,14 @@ public class WeatherActivity extends AppCompatActivity {
     }
 
     private void goToEdit() {
-        Intent intent = new Intent(this, RegisterWeatherActivity.class);
+        Intent intent = new Intent(this, WeatherFormActivity.class);
 
         Weather selectedWeather = weathers.get(selectedPosition);
 
-        intent.putExtra(RegisterWeatherActivity.SCREEN_MODE_KEY, RegisterWeatherActivity.SCREEN_MODE_EDIT);
-        intent.putExtra(RegisterWeatherActivity.NAME_KEY, selectedWeather.getName());
-        intent.putExtra(RegisterWeatherActivity.WEATHER_KEY, selectedWeather.getWeather());
-        intent.putExtra(RegisterWeatherActivity.WIND_STRENGTH_KEY, selectedWeather.getWindStrength().name());
+        intent.putExtra(WeatherFormActivity.SCREEN_MODE_KEY, WeatherFormActivity.SCREEN_MODE_EDIT);
+        intent.putExtra(WeatherFormActivity.NAME_KEY, selectedWeather.getName());
+        intent.putExtra(WeatherFormActivity.WEATHER_KEY, selectedWeather.getWeather());
+        intent.putExtra(WeatherFormActivity.WIND_STRENGTH_KEY, selectedWeather.getWindStrength().name());
 
         launcherEditWeather.launch(intent);
     }
@@ -271,8 +271,8 @@ public class WeatherActivity extends AppCompatActivity {
     }
 
     private void goToCreate() {
-        Intent intent = new Intent(this, RegisterWeatherActivity.class);
-        intent.putExtra(RegisterWeatherActivity.SCREEN_MODE_KEY, RegisterWeatherActivity.SCREEN_MODE_REGISTER);
+        Intent intent = new Intent(this, WeatherFormActivity.class);
+        intent.putExtra(WeatherFormActivity.SCREEN_MODE_KEY, WeatherFormActivity.SCREEN_MODE_REGISTER);
         launcherRegisterWeather.launch(intent);
     }
 
