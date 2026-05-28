@@ -1,10 +1,8 @@
-package br.com.culture.manager.cultureManager.entities;
+package br.com.culture.manager.cultureManager;
 
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import br.com.culture.manager.cultureManager.R;
 
 public class SettingsActivity extends AppCompatActivity {
 
