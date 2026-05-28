@@ -12,23 +12,26 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CultureManager">
         <activity
-            android:name=".AboutActivity"
-            android:exported="false"
-            android:parentActivityName=".WeatherActivity"/>
-        <activity
-            android:name=".RegisterWeatherActivity"
-            android:exported="false"
-            android:parentActivityName=".WeatherActivity"/>
-        <activity
-            android:name=".WeatherActivity"
-            android:exported="true"
-            android:launchMode="singleTask">
+            android:name=".HomeActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".AboutActivity"
+            android:exported="false"
+            android:parentActivityName=".HomeActivity" />
+        <activity
+            android:name=".RegisterWeatherActivity"
+            android:exported="false"
+            android:parentActivityName=".HomeActivity" />
+        <activity
+            android:name=".WeatherActivity"
+            android:exported="false"
+            android:parentActivityName=".HomeActivity"/>
     </application>
 
 </manifest>
