@@ -167,7 +167,7 @@ public class WeatherActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weather);
 
-        setTitle(getString(R.string.weathers_register));
+        setTitle(getString(R.string.weathers));
         listView = findViewById(R.id.listViewWeathers);
         getPreferences();
 
@@ -208,7 +208,7 @@ public class WeatherActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.weather_options, menu);
+        getMenuInflater().inflate(R.menu.entity_details_options, menu);
         return true;
     }
 

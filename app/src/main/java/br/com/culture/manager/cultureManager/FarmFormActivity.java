@@ -10,6 +10,6 @@ public class FarmFormActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_farm_form);
-        setTitle("Dados da Fazenda");
+        setTitle(R.string.farm_data);
     }
 }

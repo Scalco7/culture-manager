@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/menuItemPlot"
+        android:title="@string/plots" />
+    <item
+        android:id="@+id/menuItemActivity"
+        android:title="@string/activities" />
+    <item
+        android:id="@+id/menuItemWeather"
+        android:title="@string/weathers" />
+    <item
+        android:id="@+id/menuItemSettings"
+        android:title="@string/settings" />
+    <item
+        android:id="@+id/menuItemAbout"
+        android:title="@string/about" />
+</menu>
