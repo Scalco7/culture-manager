@@ -21,6 +21,7 @@
                 android:id="@+id/buttonFarmDetails"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:onClick="onClickGoToFarmDetailsForm"
                 android:text="@string/farm_data"
                 android:textColorLink="#9B9B9B"
                 app:cornerRadius="0dp" />
