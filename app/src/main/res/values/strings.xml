@@ -40,5 +40,7 @@
     <string name="plots">Plots</string>
     <string name="settings">Settings</string>
     <string name="activities">Activities</string>
+    <string name="remove_weather">Remove Weather</string>
+    <string name="remove_weather_message_confirm">Do you wanna remove the selected weather?</string>
 
 </resources>

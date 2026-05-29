@@ -1,5 +1,6 @@
 package br.com.culture.manager.cultureManager;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -26,11 +27,11 @@ import java.util.Comparator;
 
 import br.com.culture.manager.cultureManager.entities.Weather;
 import br.com.culture.manager.cultureManager.enums.WindStrength;
+import br.com.culture.manager.cultureManager.utils.AlertDialogUtils;
 
 public class WeatherActivity extends AppCompatActivity {
     public static final String PREFERENCES_KEY = "preferences";
     public static final String SORT_BY_OLDERS_KEY = "sortByOlders";
-
     private final ArrayList<Weather> weathers = new ArrayList<>();
     private ListView listView;
     private WeatherAdapter weatherAdapter;
@@ -38,6 +39,7 @@ public class WeatherActivity extends AppCompatActivity {
     private Drawable backgroundDrawableSelected;
     private ActionMode actionMode;
     private boolean sortByOlder = false;
+    private int selectedPosition = -1;
 
     private ActionMode.Callback actionModeCallback = new ActionMode.Callback() {
         @Override
@@ -63,7 +65,6 @@ public class WeatherActivity extends AppCompatActivity {
 
             if (itemId == R.id.menuItemRemove) {
                 removeWeather();
-                mode.finish();
                 return true;
             }
 
@@ -85,8 +86,6 @@ public class WeatherActivity extends AppCompatActivity {
             weatherAdapter.notifyDataSetChanged();
         }
     };
-
-    private int selectedPosition = -1;
 
     private final ActivityResultLauncher<Intent> launcherRegisterWeather = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
             new ActivityResultCallback<ActivityResult>() {
@@ -242,9 +241,18 @@ public class WeatherActivity extends AppCompatActivity {
     }
 
     private void removeWeather() {
-        weathers.remove(selectedPosition);
+        final int positionToRemove = selectedPosition;
 
-        weatherAdapter.notifyDataSetChanged();
+        DialogInterface.OnClickListener listenerOk = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                weathers.remove(positionToRemove);
+                weatherAdapter.notifyDataSetChanged();
+            }
+        };
+
+        AlertDialogUtils.showConfirm(this, R.string.remove_weather, R.string.remove_weather_message_confirm, listenerOk, null);
+        actionMode.finish();
     }
 
     private void goToEdit() {

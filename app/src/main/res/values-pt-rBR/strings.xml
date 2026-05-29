@@ -37,4 +37,6 @@
     <string name="plots">Talhões</string>
     <string name="settings">Configurações</string>
     <string name="activities">Atividades</string>
+    <string name="remove_weather">Remover Clima</string>
+    <string name="remove_weather_message_confirm">Voce deseja remover o clima selecionado?</string>
 </resources>
