@@ -5,7 +5,7 @@ import java.util.Comparator;
 
 import br.com.culture.manager.cultureManager.enums.WindStrength;
 
-public class Weather {
+public class WeatherEntity {
     private String name;
     private WindStrength windStrength;
 
@@ -13,7 +13,7 @@ public class Weather {
 
     private LocalDateTime date;
 
-    public Weather(WindStrength windStrength, String name, String weather) {
+    public WeatherEntity(WindStrength windStrength, String name, String weather) {
         this.windStrength = windStrength;
         this.name = name;
         this.weather = weather;
@@ -52,19 +52,19 @@ public class Weather {
         this.windStrength = windStrength;
     }
 
-    public static Comparator<Weather> weatherAsc() {
-        return new Comparator<Weather>() {
+    public static Comparator<WeatherEntity> weatherAsc() {
+        return new Comparator<WeatherEntity>() {
             @Override
-            public int compare(Weather w1, Weather w2) {
+            public int compare(WeatherEntity w1, WeatherEntity w2) {
                 return w1.getDate().compareTo(w2.getDate());
             }
         };
     }
 
-    public static Comparator<Weather> weatherDesc() {
-        return new Comparator<Weather>() {
+    public static Comparator<WeatherEntity> weatherDesc() {
+        return new Comparator<WeatherEntity>() {
             @Override
-            public int compare(Weather w1, Weather w2) {
+            public int compare(WeatherEntity w1, WeatherEntity w2) {
                 return w2.getDate().compareTo(w1.getDate());
             }
         };

@@ -1,10 +1,10 @@
 package br.com.culture.manager.cultureManager.entities;
 
-public class Plot {
+public class PlotEntity {
     private String name;
     private Float areaSize;
 
-    public Plot(String name, Float areaSize) {
+    public PlotEntity(String name, Float areaSize) {
         this.name = name;
         this.areaSize = areaSize;
     }

@@ -2,13 +2,13 @@ package br.com.culture.manager.cultureManager.entities;
 
 import java.time.LocalDateTime;
 
-public class ActivityLog {
+public class ActivityLogEntity {
     private String name;
-    private Plot plot;
+    private PlotEntity plot;
     private Integer timeSpent;
     private LocalDateTime date;
 
-    public ActivityLog(String name, LocalDateTime date, Plot plot, Integer timeSpent) {
+    public ActivityLogEntity(String name, LocalDateTime date, PlotEntity plot, Integer timeSpent) {
         this.name = name;
         this.date = date;
         this.plot = plot;
@@ -31,11 +31,11 @@ public class ActivityLog {
         this.date = date;
     }
 
-    public Plot getPlot() {
+    public PlotEntity getPlot() {
         return plot;
     }
 
-    public void setPlot(Plot plot) {
+    public void setPlot(PlotEntity plot) {
         this.plot = plot;
     }
 

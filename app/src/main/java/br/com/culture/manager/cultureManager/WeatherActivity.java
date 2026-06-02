@@ -25,14 +25,14 @@ import androidx.appcompat.view.ActionMode;
 import java.util.ArrayList;
 import java.util.Comparator;
 
-import br.com.culture.manager.cultureManager.entities.Weather;
+import br.com.culture.manager.cultureManager.entities.WeatherEntity;
 import br.com.culture.manager.cultureManager.enums.WindStrength;
 import br.com.culture.manager.cultureManager.utils.AlertDialogUtils;
 
 public class WeatherActivity extends AppCompatActivity {
     public static final String PREFERENCES_KEY = "preferences";
     public static final String SORT_BY_OLDERS_KEY = "sortByOlders";
-    private final ArrayList<Weather> weathers = new ArrayList<>();
+    private final ArrayList<WeatherEntity> weatherEntities = new ArrayList<>();
     private ListView listView;
     private WeatherAdapter weatherAdapter;
     private View viewSelected;
@@ -109,12 +109,12 @@ public class WeatherActivity extends AppCompatActivity {
                     String weather = bundle.getString(WeatherFormActivity.WEATHER_KEY);
                     String windStrength = bundle.getString(WeatherFormActivity.WIND_STRENGTH_KEY);
 
-                    Weather weatherEntity = new Weather(WindStrength.valueOf(windStrength), name, weather);
+                    WeatherEntity weatherEntity = new WeatherEntity(WindStrength.valueOf(windStrength), name, weather);
 
-                    weathers.add(weatherEntity);
+                    weatherEntities.add(weatherEntity);
 
-                    Comparator<Weather> comparator = sortByOlder ? Weather.weatherAsc() : Weather.weatherDesc();
-                    weathers.sort(comparator);
+                    Comparator<WeatherEntity> comparator = sortByOlder ? WeatherEntity.weatherAsc() : WeatherEntity.weatherDesc();
+                    weatherEntities.sort(comparator);
 
                     weatherAdapter.notifyDataSetChanged();
                 }
@@ -148,14 +148,14 @@ public class WeatherActivity extends AppCompatActivity {
                     String weather = bundle.getString(WeatherFormActivity.WEATHER_KEY);
                     String windStrength = bundle.getString(WeatherFormActivity.WIND_STRENGTH_KEY);
 
-                    Weather selectedWeather = weathers.get(position);
+                    WeatherEntity selectedWeather = weatherEntities.get(position);
 
                     selectedWeather.setName(name);
                     selectedWeather.setWeather(weather);
                     selectedWeather.setWindStrength(WindStrength.valueOf(windStrength));
 
-                    Comparator<Weather> comparator = sortByOlder ? Weather.weatherAsc() : Weather.weatherDesc();
-                    weathers.sort(comparator);
+                    Comparator<WeatherEntity> comparator = sortByOlder ? WeatherEntity.weatherAsc() : WeatherEntity.weatherDesc();
+                    weatherEntities.sort(comparator);
 
                     weatherAdapter.notifyDataSetChanged();
                 }
@@ -173,7 +173,7 @@ public class WeatherActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Weather weather = (Weather) adapterView.getItemAtPosition(i);
+                WeatherEntity weather = (WeatherEntity) adapterView.getItemAtPosition(i);
 
                 Toast.makeText(getApplicationContext(), weather.getName(), Toast.LENGTH_SHORT).show();
             }
@@ -200,7 +200,7 @@ public class WeatherActivity extends AppCompatActivity {
             }
         });
 
-        weatherAdapter = new WeatherAdapter(this, weathers);
+        weatherAdapter = new WeatherAdapter(this, weatherEntities);
         listView.setAdapter(weatherAdapter);
         registerForContextMenu(listView);
     }
@@ -232,8 +232,8 @@ public class WeatherActivity extends AppCompatActivity {
             savePreferences();
             item.setChecked(sortByOlder);
 
-            Comparator<Weather> comparator = sortByOlder ? Weather.weatherAsc() : Weather.weatherDesc();
-            weathers.sort(comparator);
+            Comparator<WeatherEntity> comparator = sortByOlder ? WeatherEntity.weatherAsc() : WeatherEntity.weatherDesc();
+            weatherEntities.sort(comparator);
             weatherAdapter.notifyDataSetChanged();
         }
 
@@ -246,7 +246,7 @@ public class WeatherActivity extends AppCompatActivity {
         DialogInterface.OnClickListener listenerOk = new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                weathers.remove(positionToRemove);
+                weatherEntities.remove(positionToRemove);
                 weatherAdapter.notifyDataSetChanged();
             }
         };
@@ -258,7 +258,7 @@ public class WeatherActivity extends AppCompatActivity {
     private void goToEdit() {
         Intent intent = new Intent(this, WeatherFormActivity.class);
 
-        Weather selectedWeather = weathers.get(selectedPosition);
+        WeatherEntity selectedWeather = weatherEntities.get(selectedPosition);
 
         intent.putExtra(WeatherFormActivity.SCREEN_MODE_KEY, WeatherFormActivity.SCREEN_MODE_EDIT);
         intent.putExtra(WeatherFormActivity.NAME_KEY, selectedWeather.getName());

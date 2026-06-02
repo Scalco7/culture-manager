@@ -9,12 +9,12 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import br.com.culture.manager.cultureManager.entities.Weather;
+import br.com.culture.manager.cultureManager.entities.WeatherEntity;
 
 public class WeatherAdapter extends BaseAdapter {
 
     private final Context context;
-    private final ArrayList<Weather> weathers;
+    private final ArrayList<WeatherEntity> weatherEntities;
 
     private static class WeatherHolder{
         public TextView textViewDate;
@@ -23,24 +23,24 @@ public class WeatherAdapter extends BaseAdapter {
         public TextView textViewWind;
     }
 
-    WeatherAdapter(Context context, ArrayList<Weather> weathers){
+    WeatherAdapter(Context context, ArrayList<WeatherEntity> weathers){
         this.context = context;
-        this.weathers = weathers;
+        this.weatherEntities = weathers;
     }
 
     @Override
     public int getCount() {
-        return weathers.size();
+        return weatherEntities.size();
     }
 
     @Override
     public Object getItem(int i) {
-        return weathers.get(i);
+        return weatherEntities.get(i);
     }
 
     @Override
     public long getItemId(int i) {
-        return weathers.get(i).hashCode();
+        return weatherEntities.get(i).hashCode();
     }
 
 
@@ -64,7 +64,7 @@ public class WeatherAdapter extends BaseAdapter {
          holder = (WeatherHolder) view.getTag();
         }
 
-        Weather weather = weathers.get(position);
+        WeatherEntity weather = weatherEntities.get(position);
 
         holder.textViewDate.setText(weather.getDate().toString());
         holder.textViewWeather.setText(weather.getWeather());
