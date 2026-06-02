@@ -1,4 +1,4 @@
-package br.com.culture.manager.cultureManager;
+package br.com.culture.manager.cultureManager.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,7 +14,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import br.com.culture.manager.cultureManager.enums.WindStrength;
+import br.com.culture.manager.cultureManager.R;
+import br.com.culture.manager.cultureManager.domain.enums.WindStrength;
 
 public class WeatherFormActivity extends AppCompatActivity {
     public static final String NAME_KEY = "name";

@@ -1,4 +1,4 @@
-package br.com.culture.manager.cultureManager.utils;
+package br.com.culture.manager.cultureManager.ui.utils;
 
 import android.content.Context;
 import android.content.DialogInterface;

@@ -1,9 +1,9 @@
-package br.com.culture.manager.cultureManager.entities;
+package br.com.culture.manager.cultureManager.domain.entities;
 
 import java.time.LocalDateTime;
 import java.util.Comparator;
 
-import br.com.culture.manager.cultureManager.enums.WindStrength;
+import br.com.culture.manager.cultureManager.domain.enums.WindStrength;
 
 public class WeatherEntity {
     private String name;

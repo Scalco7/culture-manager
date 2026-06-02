@@ -1,4 +1,4 @@
-package br.com.culture.manager.cultureManager;
+package br.com.culture.manager.cultureManager.ui;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,7 +9,8 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import br.com.culture.manager.cultureManager.entities.WeatherEntity;
+import br.com.culture.manager.cultureManager.R;
+import br.com.culture.manager.cultureManager.domain.entities.WeatherEntity;
 
 public class WeatherAdapter extends BaseAdapter {
 

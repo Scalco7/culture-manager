@@ -1,4 +1,4 @@
-package br.com.culture.manager.cultureManager.entities;
+package br.com.culture.manager.cultureManager.domain.entities;
 
 import java.time.LocalDateTime;
 

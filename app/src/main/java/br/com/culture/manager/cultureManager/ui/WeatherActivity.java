@@ -1,4 +1,4 @@
-package br.com.culture.manager.cultureManager;
+package br.com.culture.manager.cultureManager.ui;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -25,9 +25,10 @@ import androidx.appcompat.view.ActionMode;
 import java.util.ArrayList;
 import java.util.Comparator;
 
-import br.com.culture.manager.cultureManager.entities.WeatherEntity;
-import br.com.culture.manager.cultureManager.enums.WindStrength;
-import br.com.culture.manager.cultureManager.utils.AlertDialogUtils;
+import br.com.culture.manager.cultureManager.R;
+import br.com.culture.manager.cultureManager.domain.entities.WeatherEntity;
+import br.com.culture.manager.cultureManager.domain.enums.WindStrength;
+import br.com.culture.manager.cultureManager.ui.utils.AlertDialogUtils;
 
 public class WeatherActivity extends AppCompatActivity {
     public static final String PREFERENCES_KEY = "preferences";

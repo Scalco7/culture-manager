@@ -1,10 +1,12 @@
-package br.com.culture.manager.cultureManager;
+package br.com.culture.manager.cultureManager.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import br.com.culture.manager.cultureManager.R;
 
 public class SettingsActivity extends AppCompatActivity {
 

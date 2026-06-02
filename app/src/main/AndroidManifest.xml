@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CultureManager">
         <activity
-            android:name=".HomeActivity"
+            android:name=".ui.HomeActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,25 +21,25 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".FarmFormActivity"
+            android:name=".ui.FarmFormActivity"
             android:exported="false"
-            android:parentActivityName=".SettingsActivity"/>
+            android:parentActivityName=".ui.SettingsActivity"/>
         <activity
-            android:name=".SettingsActivity"
+            android:name=".ui.SettingsActivity"
             android:exported="false"
-            android:parentActivityName=".HomeActivity"/>
+            android:parentActivityName=".ui.HomeActivity"/>
         <activity
-            android:name=".AboutActivity"
+            android:name=".ui.AboutActivity"
             android:exported="false"
-            android:parentActivityName=".HomeActivity" />
+            android:parentActivityName=".ui.HomeActivity" />
         <activity
-            android:name=".WeatherFormActivity"
+            android:name=".ui.WeatherFormActivity"
             android:exported="false"
-            android:parentActivityName=".WeatherActivity" />
+            android:parentActivityName=".ui.WeatherActivity" />
         <activity
-            android:name=".WeatherActivity"
+            android:name=".ui.WeatherActivity"
             android:exported="false"
-            android:parentActivityName=".HomeActivity" />
+            android:parentActivityName=".ui.HomeActivity" />
     </application>
 
 </manifest>
