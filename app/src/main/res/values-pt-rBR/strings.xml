@@ -39,5 +39,7 @@
     <string name="activities">Atividades</string>
     <string name="remove_weather">Remover Clima</string>
     <string name="remove_weather_message_confirm">Voce deseja remover o clima selecionado?</string>
-    <string name="error_updating_weather">Erro atualizando clima</string>
+    <string name="error_updating_weather">Erro atualizando o clima</string>
+    <string name="error_updating_farm_name">Erro atualizando o nome da fazenda</string>
+    <string name="success_updating_farm_name">Nome da Fazenda atualizado</string>
 </resources>
