@@ -49,7 +49,7 @@ public class WeatherActivity extends AppCompatActivity {
         @Override
         public boolean onCreateActionMode(ActionMode mode, Menu menu) {
             MenuInflater inflater = mode.getMenuInflater();
-            inflater.inflate(R.menu.weather_item_selected_options, menu);
+            inflater.inflate(R.menu.item_selected_options, menu);
             return true;
         }
 
@@ -281,12 +281,11 @@ public class WeatherActivity extends AppCompatActivity {
             }
         });
 
+        List<WeatherEntity> weathers = sortByOlder ? weatherDAO.getAllOlders() : weatherDAO.getAllRecents();
+        weatherEntities.addAll(weathers);
+
         weatherAdapter = new WeatherAdapter(this, weatherEntities);
         listView.setAdapter(weatherAdapter);
         registerForContextMenu(listView);
-
-        List<WeatherEntity> weathers = sortByOlder ? weatherDAO.getAllOlders() : weatherDAO.getAllRecents();
-        weatherEntities.addAll(weathers);
-        weatherAdapter.notifyDataSetChanged();
     }
 }

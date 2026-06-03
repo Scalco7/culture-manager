@@ -89,8 +89,8 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void goToPlot() {
-        //Intent intent = new Intent(this, PlotActivity.class);
-        //startActivity(intent);
+        Intent intent = new Intent(this, PlotActivity.class);
+        startActivity(intent);
     }
 
     private void goToActivity() {
