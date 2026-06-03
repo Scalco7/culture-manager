@@ -12,6 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CultureManager">
         <activity
+            android:name=".ui.PlotActivity"
+            android:exported="false"
+            android:parentActivityName=".ui.HomeActivity"/>
+        <activity
             android:name=".ui.HomeActivity"
             android:exported="true">
             <intent-filter>
@@ -23,11 +27,11 @@
         <activity
             android:name=".ui.FarmFormActivity"
             android:exported="false"
-            android:parentActivityName=".ui.SettingsActivity"/>
+            android:parentActivityName=".ui.SettingsActivity" />
         <activity
             android:name=".ui.SettingsActivity"
             android:exported="false"
-            android:parentActivityName=".ui.HomeActivity"/>
+            android:parentActivityName=".ui.HomeActivity" />
         <activity
             android:name=".ui.AboutActivity"
             android:exported="false"

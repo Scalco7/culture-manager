@@ -17,6 +17,14 @@ public class PlotEntity {
         this.areaSize = areaSize;
     }
 
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
     public Float getAreaSize() {
         return areaSize;
     }
@@ -31,13 +39,5 @@ public class PlotEntity {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 }
