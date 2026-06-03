@@ -1,23 +1,38 @@
 package br.com.culture.manager.cultureManager.domain.entities;
 
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
+
 import java.time.LocalDateTime;
 import java.util.Comparator;
 
 import br.com.culture.manager.cultureManager.domain.enums.WindStrength;
 
+@Entity(tableName = "weather")
 public class WeatherEntity {
+    @PrimaryKey(autoGenerate = true)
+    private long id;
     private String name;
     private WindStrength windStrength;
-
     private String weather;
-
     private LocalDateTime date;
+//    private FarmEntity farm;
 
+    @Ignore
     public WeatherEntity(WindStrength windStrength, String name, String weather) {
         this.windStrength = windStrength;
         this.name = name;
         this.weather = weather;
         this.date = LocalDateTime.now();
+    }
+
+    public WeatherEntity(LocalDateTime date, long id, String name, String weather, WindStrength windStrength) {
+        this.date = date;
+        this.id = id;
+        this.name = name;
+        this.weather = weather;
+        this.windStrength = windStrength;
     }
 
     public String getName() {
@@ -68,5 +83,13 @@ public class WeatherEntity {
                 return w2.getDate().compareTo(w1.getDate());
             }
         };
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 }
