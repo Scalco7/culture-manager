@@ -15,12 +15,13 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import br.com.culture.manager.cultureManager.R;
+import br.com.culture.manager.cultureManager.data.data_access_objects.WeatherDAO;
+import br.com.culture.manager.cultureManager.data.db.LocalDatabase;
+import br.com.culture.manager.cultureManager.domain.entities.WeatherEntity;
 import br.com.culture.manager.cultureManager.domain.enums.WindStrength;
 
 public class WeatherFormActivity extends AppCompatActivity {
-    public static final String NAME_KEY = "name";
-    public static final String WEATHER_KEY = "weather";
-    public static final String WIND_STRENGTH_KEY = "windStrength";
+    public static final String ID_KEY = "id";
     public static final String SCREEN_MODE_KEY = "screenMode";
     public static final int SCREEN_MODE_EDIT = 1;
     public static final int SCREEN_MODE_REGISTER = 0;
@@ -30,6 +31,9 @@ public class WeatherFormActivity extends AppCompatActivity {
     private RadioGroup radioGroupWeather;
     private CheckBox checkBoxConfirm;
     private Spinner spinnerWindStrength;
+
+    private WeatherDAO weatherDAO;
+    private WeatherEntity editingWeather;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +48,8 @@ public class WeatherFormActivity extends AppCompatActivity {
         Intent openIntent = getIntent();
         Bundle bundle = openIntent.getExtras();
 
+        weatherDAO = LocalDatabase.getInstance(this).getWeatherDAO();
+
         if(bundle != null){
             int screenMode = bundle.getInt(SCREEN_MODE_KEY);
 
@@ -52,10 +58,13 @@ public class WeatherFormActivity extends AppCompatActivity {
             }else{
                 setTitle(getString(R.string.edit_weather_title));
 
-                String name = bundle.getString(NAME_KEY);
-                String weather = bundle.getString(WEATHER_KEY);
-                String windStrengthText = bundle.getString(WIND_STRENGTH_KEY);
-                WindStrength windStrength = WindStrength.valueOf(windStrengthText);
+                long id = bundle.getLong(ID_KEY);
+
+                editingWeather = weatherDAO.getById(id);
+
+                String name = editingWeather.getName();
+                String weather = editingWeather.getWeather();
+                WindStrength windStrength = editingWeather.getWindStrength();
 
 
                 editTextRegisterWeatherName.setText(name);
@@ -121,7 +130,6 @@ public class WeatherFormActivity extends AppCompatActivity {
             return;
         }
 
-
         int windStrengthPosition = spinnerWindStrength.getSelectedItemPosition();
 
         if (windStrengthPosition == AdapterView.INVALID_POSITION) {
@@ -162,12 +170,29 @@ public class WeatherFormActivity extends AppCompatActivity {
             return;
         }
 
+        WeatherEntity weather;
+
+        if(editingWeather == null){
+            weather = new WeatherEntity(windStrength, name, weatherSelected);
+
+            long id = weatherDAO.insert(weather);
+            weather.setId(id);
+        }else{
+            weather = editingWeather;
+            weather.setName(name);
+            weather.setWeather(weatherSelected);
+            weather.setWindStrength(windStrength);
+            int rowsUpdated = weatherDAO.update(editingWeather);
+
+            if(rowsUpdated <= 0){
+                Toast.makeText(this, getText(R.string.error_updating_weather), Toast.LENGTH_SHORT).show();
+                return;
+            }
+        }
 
         Intent returnIntent = new Intent();
 
-        returnIntent.putExtra(NAME_KEY, name);
-        returnIntent.putExtra(WEATHER_KEY, weatherSelected);
-        returnIntent.putExtra(WIND_STRENGTH_KEY, windStrength.name());
+        returnIntent.putExtra(ID_KEY, weather.getId());
 
         setResult(RESULT_OK, returnIntent);
         finish();

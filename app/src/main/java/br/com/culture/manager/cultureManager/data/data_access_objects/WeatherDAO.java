@@ -13,17 +13,20 @@ import br.com.culture.manager.cultureManager.domain.entities.WeatherEntity;
 @Dao
 public interface WeatherDAO {
     @Insert
-    void insert(WeatherEntity weatherEntity);
+    long insert(WeatherEntity weatherEntity);
 
     @Update
-    void update(WeatherEntity weatherEntity);
+    int update(WeatherEntity weatherEntity);
 
     @Delete
-    void delete(WeatherEntity weatherEntity);
+    int delete(WeatherEntity weatherEntity);
 
     @Query("SELECT * FROM weather ORDER BY date DESC")
     List<WeatherEntity> getAllRecents();
 
     @Query("SELECT * FROM weather ORDER BY date ASC")
     List<WeatherEntity> getAllOlders();
+
+    @Query("SELECT * FROM weather WHERE id = :id")
+    WeatherEntity getById(long id);
 }

@@ -23,16 +23,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.ActionMode;
 
 import java.util.ArrayList;
-import java.util.Comparator;
+import java.util.List;
 
 import br.com.culture.manager.cultureManager.R;
+import br.com.culture.manager.cultureManager.data.data_access_objects.WeatherDAO;
+import br.com.culture.manager.cultureManager.data.db.LocalDatabase;
 import br.com.culture.manager.cultureManager.domain.entities.WeatherEntity;
-import br.com.culture.manager.cultureManager.domain.enums.WindStrength;
 import br.com.culture.manager.cultureManager.ui.utils.AlertDialogUtils;
 
 public class WeatherActivity extends AppCompatActivity {
     public static final String PREFERENCES_KEY = "preferences";
-    public static final String SORT_BY_OLDERS_KEY = "sortByOlders";
+    public static final String SORT_BY_OLDER_KEY = "sortByOlder";
     private final ArrayList<WeatherEntity> weatherEntities = new ArrayList<>();
     private ListView listView;
     private WeatherAdapter weatherAdapter;
@@ -42,7 +43,9 @@ public class WeatherActivity extends AppCompatActivity {
     private boolean sortByOlder = false;
     private int selectedPosition = -1;
 
-    private ActionMode.Callback actionModeCallback = new ActionMode.Callback() {
+    private WeatherDAO weatherDAO;
+
+    private final ActionMode.Callback actionModeCallback = new ActionMode.Callback() {
         @Override
         public boolean onCreateActionMode(ActionMode mode, Menu menu) {
             MenuInflater inflater = mode.getMenuInflater();
@@ -106,16 +109,15 @@ public class WeatherActivity extends AppCompatActivity {
                         return;
                     }
 
-                    String name = bundle.getString(WeatherFormActivity.NAME_KEY);
-                    String weather = bundle.getString(WeatherFormActivity.WEATHER_KEY);
-                    String windStrength = bundle.getString(WeatherFormActivity.WIND_STRENGTH_KEY);
+                    long id = bundle.getLong(WeatherFormActivity.ID_KEY);
 
-                    WeatherEntity weatherEntity = new WeatherEntity(WindStrength.valueOf(windStrength), name, weather);
+                    WeatherEntity weather = weatherDAO.getById(id);
 
-                    weatherEntities.add(weatherEntity);
-
-                    Comparator<WeatherEntity> comparator = sortByOlder ? WeatherEntity.weatherAsc() : WeatherEntity.weatherDesc();
-                    weatherEntities.sort(comparator);
+                    if (sortByOlder) {
+                        weatherEntities.add(weather);
+                    } else {
+                        weatherEntities.add(0, weather);
+                    }
 
                     weatherAdapter.notifyDataSetChanged();
                 }
@@ -145,19 +147,10 @@ public class WeatherActivity extends AppCompatActivity {
                         return;
                     }
 
-                    String name = bundle.getString(WeatherFormActivity.NAME_KEY);
-                    String weather = bundle.getString(WeatherFormActivity.WEATHER_KEY);
-                    String windStrength = bundle.getString(WeatherFormActivity.WIND_STRENGTH_KEY);
+                    long id = bundle.getLong(WeatherFormActivity.ID_KEY);
+                    WeatherEntity weather = weatherDAO.getById(id);
 
-                    WeatherEntity selectedWeather = weatherEntities.get(position);
-
-                    selectedWeather.setName(name);
-                    selectedWeather.setWeather(weather);
-                    selectedWeather.setWindStrength(WindStrength.valueOf(windStrength));
-
-                    Comparator<WeatherEntity> comparator = sortByOlder ? WeatherEntity.weatherAsc() : WeatherEntity.weatherDesc();
-                    weatherEntities.sort(comparator);
-
+                    weatherEntities.set(position, weather);
                     weatherAdapter.notifyDataSetChanged();
                 }
             });
@@ -169,8 +162,95 @@ public class WeatherActivity extends AppCompatActivity {
 
         setTitle(getString(R.string.weathers));
         listView = findViewById(R.id.listViewWeathers);
-        getPreferences();
 
+        weatherDAO = LocalDatabase.getInstance(this).getWeatherDAO();
+
+        getPreferences();
+        configureListView();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.entity_details_options, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        MenuItem item = menu.findItem(R.id.menuItemSort);
+        item.setChecked(sortByOlder);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int itemId = item.getItemId();
+
+        if (itemId == R.id.menuItemCreate) {
+            goToCreate();
+            return true;
+        }
+
+        if (itemId == R.id.menuItemSort) {
+            sortByOlder = !sortByOlder;
+            savePreferences();
+            item.setChecked(sortByOlder);
+
+            List<WeatherEntity> weathers = sortByOlder ? weatherDAO.getAllOlders() : weatherDAO.getAllRecents();
+            weatherEntities.clear();
+            weatherEntities.addAll(weathers);
+            weatherAdapter.notifyDataSetChanged();
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void removeWeather() {
+        final int positionToRemove = selectedPosition;
+
+        DialogInterface.OnClickListener listenerOk = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                WeatherEntity entityToRemove = weatherEntities.get(positionToRemove);
+                weatherDAO.delete(entityToRemove);
+                weatherEntities.remove(positionToRemove);
+                weatherAdapter.notifyDataSetChanged();
+            }
+        };
+
+        AlertDialogUtils.showConfirm(this, R.string.remove_weather, R.string.remove_weather_message_confirm, listenerOk, null);
+        actionMode.finish();
+    }
+
+    private void goToEdit() {
+        Intent intent = new Intent(this, WeatherFormActivity.class);
+
+        WeatherEntity selectedWeather = weatherEntities.get(selectedPosition);
+
+        intent.putExtra(WeatherFormActivity.SCREEN_MODE_KEY, WeatherFormActivity.SCREEN_MODE_EDIT);
+        intent.putExtra(WeatherFormActivity.ID_KEY, selectedWeather.getId());
+        launcherEditWeather.launch(intent);
+    }
+
+    private void goToCreate() {
+        Intent intent = new Intent(this, WeatherFormActivity.class);
+        intent.putExtra(WeatherFormActivity.SCREEN_MODE_KEY, WeatherFormActivity.SCREEN_MODE_REGISTER);
+        launcherRegisterWeather.launch(intent);
+    }
+
+    private void getPreferences() {
+        SharedPreferences sharedPreferences = getSharedPreferences(PREFERENCES_KEY, MODE_PRIVATE);
+        sortByOlder = sharedPreferences.getBoolean(SORT_BY_OLDER_KEY, sortByOlder);
+    }
+
+    private void savePreferences() {
+        SharedPreferences sharedPreferences = getSharedPreferences(PREFERENCES_KEY, MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean(SORT_BY_OLDER_KEY, sortByOlder);
+        editor.apply();
+    }
+
+    private void configureListView() {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -204,86 +284,9 @@ public class WeatherActivity extends AppCompatActivity {
         weatherAdapter = new WeatherAdapter(this, weatherEntities);
         listView.setAdapter(weatherAdapter);
         registerForContextMenu(listView);
-    }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.entity_details_options, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        MenuItem item = menu.findItem(R.id.menuItemSort);
-        item.setChecked(sortByOlder);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        int itemId = item.getItemId();
-
-        if (itemId == R.id.menuItemCreate) {
-            goToCreate();
-            return true;
-        }
-
-        if (itemId == R.id.menuItemSort) {
-            sortByOlder = !sortByOlder;
-            savePreferences();
-            item.setChecked(sortByOlder);
-
-            Comparator<WeatherEntity> comparator = sortByOlder ? WeatherEntity.weatherAsc() : WeatherEntity.weatherDesc();
-            weatherEntities.sort(comparator);
-            weatherAdapter.notifyDataSetChanged();
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    private void removeWeather() {
-        final int positionToRemove = selectedPosition;
-
-        DialogInterface.OnClickListener listenerOk = new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                weatherEntities.remove(positionToRemove);
-                weatherAdapter.notifyDataSetChanged();
-            }
-        };
-
-        AlertDialogUtils.showConfirm(this, R.string.remove_weather, R.string.remove_weather_message_confirm, listenerOk, null);
-        actionMode.finish();
-    }
-
-    private void goToEdit() {
-        Intent intent = new Intent(this, WeatherFormActivity.class);
-
-        WeatherEntity selectedWeather = weatherEntities.get(selectedPosition);
-
-        intent.putExtra(WeatherFormActivity.SCREEN_MODE_KEY, WeatherFormActivity.SCREEN_MODE_EDIT);
-        intent.putExtra(WeatherFormActivity.NAME_KEY, selectedWeather.getName());
-        intent.putExtra(WeatherFormActivity.WEATHER_KEY, selectedWeather.getWeather());
-        intent.putExtra(WeatherFormActivity.WIND_STRENGTH_KEY, selectedWeather.getWindStrength().name());
-
-        launcherEditWeather.launch(intent);
-    }
-
-    private void goToCreate() {
-        Intent intent = new Intent(this, WeatherFormActivity.class);
-        intent.putExtra(WeatherFormActivity.SCREEN_MODE_KEY, WeatherFormActivity.SCREEN_MODE_REGISTER);
-        launcherRegisterWeather.launch(intent);
-    }
-
-    private void getPreferences() {
-        SharedPreferences sharedPreferences = getSharedPreferences(PREFERENCES_KEY, MODE_PRIVATE);
-        sortByOlder = sharedPreferences.getBoolean(SORT_BY_OLDERS_KEY, sortByOlder);
-    }
-
-    private void savePreferences() {
-        SharedPreferences sharedPreferences = getSharedPreferences(PREFERENCES_KEY, MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean(SORT_BY_OLDERS_KEY, sortByOlder);
-        editor.apply();
+        List<WeatherEntity> weathers = sortByOlder ? weatherDAO.getAllOlders() : weatherDAO.getAllRecents();
+        weatherEntities.addAll(weathers);
+        weatherAdapter.notifyDataSetChanged();
     }
 }
