@@ -2,7 +2,7 @@
 <resources>
     <string name="registerWeatherTitle">Registrar Clima</string>
     <string name="edit_weather_title">Editar Clima</string>
-    <string name="register_weather_edit_text_label_name">Nome</string>
+    <string name="name">Nome</string>
     <string name="weather">Clima</string>
     <string name="sunny">Ensolarado</string>
     <string name="cloudy">Nublado</string>
@@ -42,4 +42,10 @@
     <string name="error_updating_weather">Erro atualizando o clima</string>
     <string name="error_updating_farm_name">Erro atualizando o nome da fazenda</string>
     <string name="success_updating_farm_name">Nome da Fazenda atualizado</string>
+    <string name="register_plot">Registrar Talhão</string>
+    <string name="area">Área (m²)</string>
+    <string name="edit_plot">Editar Talhão</string>
+    <string name="error_updating_plot">Erro atualizando talhão</string>
+    <string name="remove_plot">Remover Talhão</string>
+    <string name="remove_plot_confirm_message">Você deseja remover este talhão?</string>
 </resources>

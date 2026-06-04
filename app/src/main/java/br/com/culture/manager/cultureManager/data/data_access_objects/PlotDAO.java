@@ -23,4 +23,7 @@ public interface PlotDAO {
 
     @Query("SELECT * FROM plot")
     List<PlotEntity> getAll();
+
+    @Query("SELECT * FROM plot WHERE id = :id")
+    PlotEntity getById(long id);
 }

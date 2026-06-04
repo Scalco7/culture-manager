@@ -17,7 +17,6 @@ public class WeatherEntity {
     private WindStrength windStrength;
     private String weather;
     private LocalDateTime date;
-//    private FarmEntity farm;
 
     @Ignore
     public WeatherEntity(WindStrength windStrength, String name, String weather) {

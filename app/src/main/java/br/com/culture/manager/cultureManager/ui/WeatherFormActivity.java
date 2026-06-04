@@ -92,7 +92,7 @@ public class WeatherFormActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.register_weather_options, menu);
+        getMenuInflater().inflate(R.menu.form_options, menu);
         return true;
     }
 

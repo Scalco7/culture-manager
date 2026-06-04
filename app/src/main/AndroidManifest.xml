@@ -12,9 +12,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CultureManager">
         <activity
+            android:name=".ui.PlotFormActivity"
+            android:exported="false"
+            android:parentActivityName=".ui.PlotActivity"/>
+        <activity
             android:name=".ui.PlotActivity"
             android:exported="false"
-            android:parentActivityName=".ui.HomeActivity"/>
+            android:parentActivityName=".ui.HomeActivity" />
         <activity
             android:name=".ui.HomeActivity"
             android:exported="true">

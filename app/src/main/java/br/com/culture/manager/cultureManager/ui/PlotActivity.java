@@ -1,5 +1,7 @@
 package br.com.culture.manager.cultureManager.ui;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -12,6 +14,11 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.ActionMode;
 
@@ -22,6 +29,7 @@ import br.com.culture.manager.cultureManager.R;
 import br.com.culture.manager.cultureManager.data.data_access_objects.PlotDAO;
 import br.com.culture.manager.cultureManager.data.db.LocalDatabase;
 import br.com.culture.manager.cultureManager.domain.entities.PlotEntity;
+import br.com.culture.manager.cultureManager.ui.utils.AlertDialogUtils;
 
 public class PlotActivity extends AppCompatActivity {
 
@@ -80,6 +88,65 @@ public class PlotActivity extends AppCompatActivity {
         }
     };
 
+    private final ActivityResultLauncher<Intent> launcherRegisterPlot = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if (result.getResultCode() != RESULT_OK) {
+                        return;
+                    }
+
+                    Intent data = result.getData();
+                    if (data == null) {
+                        return;
+                    }
+
+                    Bundle bundle = data.getExtras();
+                    if (bundle == null) {
+                        return;
+                    }
+
+                    long id = bundle.getLong(WeatherFormActivity.ID_KEY);
+
+                    PlotEntity weather = plotDAO.getById(id);
+                    plotEntities.add(weather);
+
+                    adapter.notifyDataSetChanged();
+                }
+            });
+
+    private final ActivityResultLauncher<Intent> launcherEditPlot = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    int position = selectedPosition;
+
+                    if (actionMode != null) {
+                        actionMode.finish();
+                    }
+
+                    if (result.getResultCode() != RESULT_OK) {
+                        return;
+                    }
+
+                    Intent data = result.getData();
+                    if (data == null) {
+                        return;
+                    }
+
+                    Bundle bundle = data.getExtras();
+                    if (bundle == null) {
+                        return;
+                    }
+
+                    long id = bundle.getLong(WeatherFormActivity.ID_KEY);
+                    PlotEntity weather = plotDAO.getById(id);
+
+                    plotEntities.set(position, weather);
+                    adapter.notifyDataSetChanged();
+                }
+            });
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,6 +158,24 @@ public class PlotActivity extends AppCompatActivity {
         plotDAO = LocalDatabase.getInstance(this).getPlotDAO();
 
         configureListView();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.entity_activity_options, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int itemId = item.getItemId();
+
+        if (itemId == R.id.menuItemCreate) {
+            goToCreate();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     private void configureListView() {
@@ -132,11 +217,39 @@ public class PlotActivity extends AppCompatActivity {
         registerForContextMenu(listView);
     }
 
-    private void goToEdit(){
+    private void removePlot(){
+        final int positionToRemove = selectedPosition;
 
+        DialogInterface.OnClickListener listenerOk = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                PlotEntity entityToRemove = plotEntities.get(positionToRemove);
+                plotDAO.delete(entityToRemove);
+                plotEntities.remove(positionToRemove);
+                adapter.notifyDataSetChanged();
+            }
+        };
+
+        AlertDialogUtils.showConfirm(this,
+                R.string.remove_plot,
+                R.string.remove_plot_confirm_message,
+                listenerOk,
+                null);
+        actionMode.finish();
+    }
+    private void goToEdit(){
+        Intent intent = new Intent(this, PlotFormActivity.class);
+
+        PlotEntity selectedWeather = plotEntities.get(selectedPosition);
+
+        intent.putExtra(PlotFormActivity.SCREEN_MODE_KEY, PlotFormActivity.SCREEN_MODE_EDIT);
+        intent.putExtra(PlotFormActivity.ID_KEY, selectedWeather.getId());
+        launcherEditPlot.launch(intent);
     }
 
-    private void removePlot(){
-
+    private void goToCreate(){
+        Intent intent = new Intent(this, PlotFormActivity.class);
+        intent.putExtra(PlotFormActivity.SCREEN_MODE_KEY, PlotFormActivity.SCREEN_MODE_REGISTER);
+        launcherRegisterPlot.launch(intent);
     }
 }

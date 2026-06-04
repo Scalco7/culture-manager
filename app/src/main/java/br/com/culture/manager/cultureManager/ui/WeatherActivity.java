@@ -171,7 +171,7 @@ public class WeatherActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.entity_details_options, menu);
+        getMenuInflater().inflate(R.menu.weather_activity_options, menu);
         return true;
     }
 

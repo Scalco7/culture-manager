@@ -2,7 +2,7 @@
     <string name="app_name" translatable="false">cultureManager</string>
     <string name="registerWeatherTitle">Register Weather</string>
     <string name="edit_weather_title">Edit Weather</string>
-    <string name="register_weather_edit_text_label_name">Name</string>
+    <string name="name">Name</string>
     <string name="weather">Weather</string>
     <string name="sunny">Sunny</string>
     <string name="cloudy">Cloudy</string>
@@ -45,5 +45,11 @@
     <string name="error_updating_weather">Error updating weather</string>
     <string name="error_updating_farm_name">Error Updating Farm Name</string>
     <string name="success_updating_farm_name">Success Updating Farm Name</string>
+    <string name="register_plot">Register Plot</string>
+    <string name="area">Area (m²)</string>
+    <string name="edit_plot">Edit Plot</string>
+    <string name="error_updating_plot">Error updating plot</string>
+    <string name="remove_plot">Remove Plot</string>
+    <string name="remove_plot_confirm_message">Do you wanna remove the selected plot?</string>
 
 </resources>
