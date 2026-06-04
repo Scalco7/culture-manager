@@ -7,6 +7,7 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
+import br.com.culture.manager.cultureManager.data.data_access_objects.ActivityLogDAO;
 import br.com.culture.manager.cultureManager.data.data_access_objects.FarmDAO;
 import br.com.culture.manager.cultureManager.data.data_access_objects.PlotDAO;
 import br.com.culture.manager.cultureManager.data.data_access_objects.WeatherDAO;
@@ -43,6 +44,6 @@ public abstract class LocalDatabase extends RoomDatabase {
 
     public abstract FarmDAO getFarmDAO();
     public abstract WeatherDAO getWeatherDAO();
-
     public abstract PlotDAO getPlotDAO();
+    public abstract ActivityLogDAO getActivityLogDAO();
 }
