@@ -48,4 +48,8 @@
     <string name="error_updating_plot">Erro atualizando talhão</string>
     <string name="remove_plot">Remover Talhão</string>
     <string name="remove_plot_confirm_message">Você deseja remover este talhão?</string>
+    <string name="plot">Talhão</string>
+    <string name="time_spent">Tempo gasto</string>
+    <string name="remove_activity">Remover Atividade</string>
+    <string name="remove_activity_confirm_message">Você deseja remover o registro de atividade?</string>
 </resources>

@@ -24,4 +24,7 @@ public interface ActivityLogDAO {
 
     @Query("SELECT * FROM activity_log")
     List<ActivityLogEntity> getAll();
+
+    @Query("SELECT * FROM activity_log WHERE id = :id")
+    ActivityLogEntity getById(long id);
 }

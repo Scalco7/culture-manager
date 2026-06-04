@@ -11,7 +11,7 @@ public class ActivityLogModel {
     private Integer timeSpent;
     private LocalDateTime date;
 
-    public ActivityLogModel(LocalDateTime date, long id, String name, PlotEntity plot, Integer timeSpent) {
+    public ActivityLogModel(long id, PlotEntity plot, String name, Integer timeSpent, LocalDateTime date) {
         this.date = date;
         this.id = id;
         this.name = name;

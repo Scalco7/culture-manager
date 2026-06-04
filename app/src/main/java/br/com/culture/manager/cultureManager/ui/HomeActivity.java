@@ -94,8 +94,8 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void goToActivity() {
-        //Intent intent = new Intent(this, ActivityActivity.class);
-        //startActivity(intent);
+        Intent intent = new Intent(this, ActivityLogActivity.class);
+        startActivity(intent);
     }
 
     private void goToWeather() {
