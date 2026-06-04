@@ -1,56 +1,64 @@
 package br.com.culture.manager.cultureManager.domain.entities;
 
+import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
 import java.time.LocalDateTime;
 
-@Entity(tableName = "activity_log")
+@Entity(tableName = "activity_log", foreignKeys = {
+        @ForeignKey(
+                entity = PlotEntity.class,
+                parentColumns = "id",
+                childColumns = "plot_id")
+})
 public class ActivityLogEntity {
     @PrimaryKey(autoGenerate = true)
     private long id;
+    @ColumnInfo(name = "plot_id")
+    private long plotId;
+    @NonNull
     private String name;
-//    private PlotEntity plot;
+    @NonNull
+    @ColumnInfo(name = "time_spent")
     private Integer timeSpent;
+    @NonNull
     private LocalDateTime date;
 
-    public ActivityLogEntity(long id, String name, LocalDateTime date, Integer timeSpent) {
+    public ActivityLogEntity(long id, long plotId, @NonNull String name, @NonNull LocalDateTime date, @NonNull Integer timeSpent) {
         this.id = id;
+        this.plotId = plotId;
         this.name = name;
         this.date = date;
-//        this.plot = plot;
         this.timeSpent = timeSpent;
     }
 
-    public String getName(){
+    @NonNull
+    public String getName() {
         return name;
     }
 
-    public void setName(String name){
+    public void setName(@NonNull String name) {
         this.name = name;
     }
 
+    @NonNull
     public LocalDateTime getDate() {
         return date;
     }
 
-    public void setDate(LocalDateTime date) {
+    public void setDate(@NonNull LocalDateTime date) {
         this.date = date;
     }
 
-//    public PlotEntity getPlot() {
-//        return plot;
-//    }
-//
-//    public void setPlot(PlotEntity plot) {
-//        this.plot = plot;
-//    }
-
+    @NonNull
     public Integer getTimeSpent() {
         return timeSpent;
     }
 
-    public void setTimeSpent(Integer timeSpent) {
+    public void setTimeSpent(@NonNull Integer timeSpent) {
         this.timeSpent = timeSpent;
     }
 
@@ -60,5 +68,13 @@ public class ActivityLogEntity {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public long getPlotId() {
+        return plotId;
+    }
+
+    public void setPlotId(long plotId) {
+        this.plotId = plotId;
     }
 }
