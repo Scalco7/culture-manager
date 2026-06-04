@@ -51,5 +51,7 @@
     <string name="error_updating_plot">Error updating plot</string>
     <string name="remove_plot">Remove Plot</string>
     <string name="remove_plot_confirm_message">Do you want to remove the selected plot?</string>
+    <string name="plot">Plot</string>
+    <string name="time_spent">Time spent</string>
 
 </resources>
