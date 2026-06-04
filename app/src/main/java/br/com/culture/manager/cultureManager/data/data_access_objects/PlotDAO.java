@@ -19,7 +19,7 @@ public interface PlotDAO {
     int update(PlotEntity plotEntity);
 
     @Delete
-    int delete(PlotEntity plotEntity);
+    void delete(PlotEntity plotEntity);
 
     @Query("SELECT * FROM plot")
     List<PlotEntity> getAll();

@@ -29,7 +29,7 @@
     <string name="select_wind_strength">Selecione a força do vento</string>
     <string name="select_weather">Selecione o clima</string>
     <string name="confim_the_declaration">Confirme a declaração</string>
-    <string name="hello">Olá, bem vindo</string>
+    <string name="hello">Olá, bem-vindo</string>
     <string name="hello_phrase">Vamos começar dando um nome para a sua fazenda</string>
     <string name="farm_name">Nome da Fazenda</string>
     <string name="continue_text">Continuar</string>

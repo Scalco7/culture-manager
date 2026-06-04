@@ -17,7 +17,7 @@ import br.com.culture.manager.cultureManager.domain.entities.PlotEntity;
 import br.com.culture.manager.cultureManager.domain.entities.WeatherEntity;
 
 @Database(entities = {FarmEntity.class, PlotEntity.class, ActivityLogEntity.class, WeatherEntity.class},
-        version = 1,
+        version = 2,
         exportSchema = false
 )
 @TypeConverters({ConverterLocalDateTimePersistence.class})
@@ -32,8 +32,7 @@ public abstract class LocalDatabase extends RoomDatabase {
                             .allowMainThreadQueries().build();
 
                     Builder<LocalDatabase> builder = Room.databaseBuilder(context, LocalDatabase.class, "culture_manager_db");
-
-                    builder.fallbackToDestructiveMigration();
+                    builder.fallbackToDestructiveMigration(true);
                     builder.allowMainThreadQueries();
                     instance = builder.build();
                 }

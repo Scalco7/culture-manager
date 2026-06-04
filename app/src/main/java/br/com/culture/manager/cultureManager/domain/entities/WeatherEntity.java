@@ -7,7 +7,6 @@ import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import java.time.LocalDateTime;
-import java.util.Comparator;
 
 import br.com.culture.manager.cultureManager.domain.enums.WindStrength;
 
@@ -73,24 +72,6 @@ public class WeatherEntity {
 
     public void setWindStrength(WindStrength windStrength) {
         this.windStrength = windStrength;
-    }
-
-    public static Comparator<WeatherEntity> weatherAsc() {
-        return new Comparator<WeatherEntity>() {
-            @Override
-            public int compare(WeatherEntity w1, WeatherEntity w2) {
-                return w1.getDate().compareTo(w2.getDate());
-            }
-        };
-    }
-
-    public static Comparator<WeatherEntity> weatherDesc() {
-        return new Comparator<WeatherEntity>() {
-            @Override
-            public int compare(WeatherEntity w1, WeatherEntity w2) {
-                return w2.getDate().compareTo(w1.getDate());
-            }
-        };
     }
 
     public long getId() {

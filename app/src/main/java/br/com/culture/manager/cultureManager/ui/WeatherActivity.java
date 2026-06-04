@@ -10,7 +10,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -93,7 +92,7 @@ public class WeatherActivity extends AppCompatActivity {
     };
 
     private final ActivityResultLauncher<Intent> launcherRegisterWeather = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
-            new ActivityResultCallback<ActivityResult>() {
+            new ActivityResultCallback<>() {
                 @Override
                 public void onActivityResult(ActivityResult result) {
                     if (result.getResultCode() != RESULT_OK) {
@@ -125,7 +124,7 @@ public class WeatherActivity extends AppCompatActivity {
             });
 
     private final ActivityResultLauncher<Intent> launcherEditWeather = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
-            new ActivityResultCallback<ActivityResult>() {
+            new ActivityResultCallback<>() {
                 @Override
                 public void onActivityResult(ActivityResult result) {
                     int position = selectedPosition;
@@ -209,14 +208,11 @@ public class WeatherActivity extends AppCompatActivity {
     private void removeWeather() {
         final int positionToRemove = selectedPosition;
 
-        DialogInterface.OnClickListener listenerOk = new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                WeatherEntity entityToRemove = weatherEntities.get(positionToRemove);
-                weatherDAO.delete(entityToRemove);
-                weatherEntities.remove(positionToRemove);
-                weatherAdapter.notifyDataSetChanged();
-            }
+        DialogInterface.OnClickListener listenerOk = (dialogInterface, i) -> {
+            WeatherEntity entityToRemove = weatherEntities.get(positionToRemove);
+            weatherDAO.delete(entityToRemove);
+            weatherEntities.remove(positionToRemove);
+            weatherAdapter.notifyDataSetChanged();
         };
 
         AlertDialogUtils.showConfirm(this, R.string.remove_weather, R.string.remove_weather_message_confirm, listenerOk, null);
@@ -252,34 +248,28 @@ public class WeatherActivity extends AppCompatActivity {
     }
 
     private void configureListView() {
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                WeatherEntity weather = (WeatherEntity) adapterView.getItemAtPosition(i);
+        listView.setOnItemClickListener((adapterView, view, i, l) -> {
+            WeatherEntity weather = (WeatherEntity) adapterView.getItemAtPosition(i);
 
-                Toast.makeText(getApplicationContext(), weather.getName(), Toast.LENGTH_SHORT).show();
-            }
+            Toast.makeText(getApplicationContext(), weather.getName(), Toast.LENGTH_SHORT).show();
         });
 
-        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int position, long l) {
-                if (actionMode != null) {
-                    return false;
-                }
-
-                selectedPosition = position;
-
-                viewSelected = view;
-                backgroundDrawableSelected = view.getBackground();
-
-                view.setBackgroundColor(Color.LTGRAY);
-
-                listView.setEnabled(false);
-
-                actionMode = startSupportActionMode(actionModeCallback);
+        listView.setOnItemLongClickListener((adapterView, view, position, l) -> {
+            if (actionMode != null) {
                 return false;
             }
+
+            selectedPosition = position;
+
+            viewSelected = view;
+            backgroundDrawableSelected = view.getBackground();
+
+            view.setBackgroundColor(Color.LTGRAY);
+
+            listView.setEnabled(false);
+
+            actionMode = startSupportActionMode(actionModeCallback);
+            return false;
         });
 
         List<WeatherEntity> weathers = sortByOlder ? weatherDAO.getAllOlders() : weatherDAO.getAllRecents();

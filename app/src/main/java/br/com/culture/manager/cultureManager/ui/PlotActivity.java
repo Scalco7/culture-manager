@@ -9,7 +9,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -89,7 +88,7 @@ public class PlotActivity extends AppCompatActivity {
     };
 
     private final ActivityResultLauncher<Intent> launcherRegisterPlot = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
-            new ActivityResultCallback<ActivityResult>() {
+            new ActivityResultCallback<>() {
                 @Override
                 public void onActivityResult(ActivityResult result) {
                     if (result.getResultCode() != RESULT_OK) {
@@ -116,7 +115,7 @@ public class PlotActivity extends AppCompatActivity {
             });
 
     private final ActivityResultLauncher<Intent> launcherEditPlot = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
-            new ActivityResultCallback<ActivityResult>() {
+            new ActivityResultCallback<>() {
                 @Override
                 public void onActivityResult(ActivityResult result) {
                     int position = selectedPosition;
@@ -179,34 +178,28 @@ public class PlotActivity extends AppCompatActivity {
     }
 
     private void configureListView() {
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                PlotEntity plot = (PlotEntity) adapterView.getItemAtPosition(i);
+        listView.setOnItemClickListener((adapterView, view, i, l) -> {
+            PlotEntity plot = (PlotEntity) adapterView.getItemAtPosition(i);
 
-                Toast.makeText(getApplicationContext(), plot.getName(), Toast.LENGTH_SHORT).show();
-            }
+            Toast.makeText(getApplicationContext(), plot.getName(), Toast.LENGTH_SHORT).show();
         });
 
-        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int position, long l) {
-                if (actionMode != null) {
-                    return false;
-                }
-
-                selectedPosition = position;
-
-                viewSelected = view;
-                backgroundDrawableSelected = view.getBackground();
-
-                view.setBackgroundColor(Color.LTGRAY);
-
-                listView.setEnabled(false);
-
-                actionMode = startSupportActionMode(actionModeCallback);
+        listView.setOnItemLongClickListener((adapterView, view, position, l) -> {
+            if (actionMode != null) {
                 return false;
             }
+
+            selectedPosition = position;
+
+            viewSelected = view;
+            backgroundDrawableSelected = view.getBackground();
+
+            view.setBackgroundColor(Color.LTGRAY);
+
+            listView.setEnabled(false);
+
+            actionMode = startSupportActionMode(actionModeCallback);
+            return false;
         });
 
         List<PlotEntity> plots = plotDAO.getAll();
@@ -220,14 +213,11 @@ public class PlotActivity extends AppCompatActivity {
     private void removePlot(){
         final int positionToRemove = selectedPosition;
 
-        DialogInterface.OnClickListener listenerOk = new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                PlotEntity entityToRemove = plotEntities.get(positionToRemove);
-                plotDAO.delete(entityToRemove);
-                plotEntities.remove(positionToRemove);
-                adapter.notifyDataSetChanged();
-            }
+        DialogInterface.OnClickListener listenerOk = (dialogInterface, i) -> {
+            PlotEntity entityToRemove = plotEntities.get(positionToRemove);
+            plotDAO.delete(entityToRemove);
+            plotEntities.remove(positionToRemove);
+            adapter.notifyDataSetChanged();
         };
 
         AlertDialogUtils.showConfirm(this,
