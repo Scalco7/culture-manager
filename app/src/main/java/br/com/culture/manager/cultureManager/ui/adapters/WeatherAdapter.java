@@ -1,4 +1,4 @@
-package br.com.culture.manager.cultureManager.ui;
+package br.com.culture.manager.cultureManager.ui.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -24,7 +24,7 @@ public class WeatherAdapter extends BaseAdapter {
         public TextView textViewWind;
     }
 
-    WeatherAdapter(Context context, ArrayList<WeatherEntity> weathers){
+    public WeatherAdapter(Context context, ArrayList<WeatherEntity> weathers){
         this.context = context;
         this.weatherEntities = weathers;
     }

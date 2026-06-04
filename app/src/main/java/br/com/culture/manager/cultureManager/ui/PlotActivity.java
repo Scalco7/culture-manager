@@ -10,7 +10,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -29,13 +28,14 @@ import br.com.culture.manager.cultureManager.R;
 import br.com.culture.manager.cultureManager.data.data_access_objects.PlotDAO;
 import br.com.culture.manager.cultureManager.data.db.LocalDatabase;
 import br.com.culture.manager.cultureManager.domain.entities.PlotEntity;
+import br.com.culture.manager.cultureManager.ui.adapters.PlotAdapter;
 import br.com.culture.manager.cultureManager.ui.utils.AlertDialogUtils;
 
 public class PlotActivity extends AppCompatActivity {
 
     private final ArrayList<PlotEntity> plotEntities = new ArrayList<>();
     private ListView listView;
-    private ArrayAdapter<PlotEntity> adapter;
+    private PlotAdapter adapter;
     private PlotDAO plotDAO;
     private ActionMode actionMode;
     private int selectedPosition = -1;
@@ -212,7 +212,7 @@ public class PlotActivity extends AppCompatActivity {
         List<PlotEntity> plots = plotDAO.getAll();
         plotEntities.addAll(plots);
 
-        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, plotEntities);
+        adapter = new PlotAdapter(this, plotEntities);
         listView.setAdapter(adapter);
         registerForContextMenu(listView);
     }

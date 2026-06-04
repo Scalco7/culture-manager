@@ -29,6 +29,7 @@ import br.com.culture.manager.cultureManager.R;
 import br.com.culture.manager.cultureManager.data.data_access_objects.WeatherDAO;
 import br.com.culture.manager.cultureManager.data.db.LocalDatabase;
 import br.com.culture.manager.cultureManager.domain.entities.WeatherEntity;
+import br.com.culture.manager.cultureManager.ui.adapters.WeatherAdapter;
 import br.com.culture.manager.cultureManager.ui.utils.AlertDialogUtils;
 
 public class WeatherActivity extends AppCompatActivity {
