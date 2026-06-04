@@ -105,10 +105,10 @@ public class PlotActivity extends AppCompatActivity {
                         return;
                     }
 
-                    long id = bundle.getLong(WeatherFormActivity.ID_KEY);
+                    long id = bundle.getLong(PlotFormActivity.ID_KEY);
 
-                    PlotEntity weather = plotDAO.getById(id);
-                    plotEntities.add(weather);
+                    PlotEntity plot = plotDAO.getById(id);
+                    plotEntities.add(plot);
 
                     adapter.notifyDataSetChanged();
                 }
@@ -138,10 +138,10 @@ public class PlotActivity extends AppCompatActivity {
                         return;
                     }
 
-                    long id = bundle.getLong(WeatherFormActivity.ID_KEY);
-                    PlotEntity weather = plotDAO.getById(id);
+                    long id = bundle.getLong(PlotFormActivity.ID_KEY);
+                    PlotEntity plot = plotDAO.getById(id);
 
-                    plotEntities.set(position, weather);
+                    plotEntities.set(position, plot);
                     adapter.notifyDataSetChanged();
                 }
             });
@@ -230,10 +230,10 @@ public class PlotActivity extends AppCompatActivity {
     private void goToEdit(){
         Intent intent = new Intent(this, PlotFormActivity.class);
 
-        PlotEntity selectedWeather = plotEntities.get(selectedPosition);
+        PlotEntity selectedPlot = plotEntities.get(selectedPosition);
 
         intent.putExtra(PlotFormActivity.SCREEN_MODE_KEY, PlotFormActivity.SCREEN_MODE_EDIT);
-        intent.putExtra(PlotFormActivity.ID_KEY, selectedWeather.getId());
+        intent.putExtra(PlotFormActivity.ID_KEY, selectedPlot.getId());
         launcherEditPlot.launch(intent);
     }
 
