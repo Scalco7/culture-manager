@@ -24,7 +24,7 @@
     <string name="felipe" translatable="false">Felipe Maciel Scalco</string>
     <string name="felipe_email" translatable="false">fscalco7@gmail.com</string>
     <string name="felipe_course">Software Engineering</string>
-    <string name="app_description">An agribusiness app designed to help farmers manage their farms.</string>
+    <string name="app_description">A digital solution for agribusiness that transforms farm management. By integrating Weather, Activities, and Fields modules, the app enables you to track every action taken directly in the field, ensuring total production control and smarter, data-driven decision-making.</string>
     <string name="remove">Remove</string>
     <string name="edit">Edit</string>
     <string name="olders">Olders</string>
