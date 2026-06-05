@@ -194,7 +194,7 @@ public class ActivityLogActivity extends AppCompatActivity {
 
     private void configureListView() {
         listView.setOnItemClickListener((adapterView, view, i, l) -> {
-            ActivityLogEntity activity = (ActivityLogEntity) adapterView.getItemAtPosition(i);
+            ActivityLogModel activity = (ActivityLogModel) adapterView.getItemAtPosition(i);
 
             Toast.makeText(getApplicationContext(), activity.getName(), Toast.LENGTH_SHORT).show();
         });

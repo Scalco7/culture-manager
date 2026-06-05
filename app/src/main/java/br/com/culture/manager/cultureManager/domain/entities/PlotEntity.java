@@ -53,4 +53,10 @@ public class PlotEntity {
     public void setName(@NonNull String name) {
         this.name = name;
     }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return name;
+    }
 }

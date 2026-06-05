@@ -66,7 +66,7 @@ public class ActivityLogAdapter extends BaseAdapter {
         ActivityLogModel activityLog = logEntities.get(position);
 
         holder.textViewName.setText(activityLog.getName());
-        holder.textViewTimeSpent.setText(activityLog.getTimeSpent());
+        holder.textViewTimeSpent.setText(activityLog.getTimeSpent().toString());
         holder.textViewDate.setText(LocalDateTimeMappers.toString(activityLog.getDate()));
         holder.textViewPlot.setText(activityLog.getPlot().getName());
 

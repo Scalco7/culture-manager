@@ -37,7 +37,8 @@ public class ActivityLogEntity {
     }
 
     @Ignore
-    public ActivityLogEntity(@NonNull String name, @NonNull LocalDateTime date, @NonNull Integer timeSpent) {
+    public ActivityLogEntity(long plotId, @NonNull String name, @NonNull LocalDateTime date, @NonNull Integer timeSpent) {
+        this.plotId = plotId;
         this.name = name;
         this.date = date;
         this.timeSpent = timeSpent;

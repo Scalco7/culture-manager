@@ -6,7 +6,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -36,8 +38,10 @@ public class ActivityLogFormActivity extends AppCompatActivity {
     private EditText editTextActivityLogTimeSpent;
     private EditText editTextActivityLogDate;
     private EditText editTextActivityLogTime;
+    private Spinner spinnerPlots;
     private LocalDate activityDate;
     private LocalTime activityTime;
+    private ArrayAdapter<PlotEntity> spinnerAdapter;
 
     private PlotDAO plotDAO;
     private ActivityLogDAO activityLogDAO;
@@ -55,6 +59,7 @@ public class ActivityLogFormActivity extends AppCompatActivity {
         editTextActivityLogTimeSpent = findViewById(R.id.editTextActivityLogTimeSpent);
         editTextActivityLogDate = findViewById(R.id.editTextActivityLogDate);
         editTextActivityLogTime = findViewById(R.id.editTextActivityLogTime);
+        spinnerPlots = findViewById(R.id.spinnerPlots);
 
         editTextActivityLogDate.setFocusable(false);
         editTextActivityLogTime.setFocusable(false);
@@ -75,6 +80,11 @@ public class ActivityLogFormActivity extends AppCompatActivity {
 
         plots = plotDAO.getAll();
 
+        spinnerAdapter = new ArrayAdapter<PlotEntity>(this, android.R.layout.simple_spinner_item, plots);
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        spinnerPlots.setAdapter(spinnerAdapter);
+
         if (bundle != null) {
             int screenMode = bundle.getInt(SCREEN_MODE_KEY);
 
@@ -93,9 +103,20 @@ public class ActivityLogFormActivity extends AppCompatActivity {
                 LocalTime time = editingActivity.getDate().toLocalTime();
 
                 editTextActivityLogName.setText(name);
-                editTextActivityLogTimeSpent.setText(timeSpent);
+                editTextActivityLogTimeSpent.setText(timeSpent.toString());
                 editTextActivityLogDate.setText(date.toString());
-                editTextActivityLogDate.setText(time.toString());
+                editTextActivityLogTime.setText(time.toString());
+
+                int selectionPosition = 0;
+
+                for(int i = 0; i < plots.size(); i++){
+                    if(plots.get(i).getId() == editingActivity.getPlotId()){
+                        selectionPosition = i;
+                        break;
+                    }
+                }
+
+                spinnerPlots.setSelection(selectionPosition);
             }
         }
     }
@@ -169,6 +190,23 @@ public class ActivityLogFormActivity extends AppCompatActivity {
     private void cleanFields() {
         editTextActivityLogName.setText("");
         editTextActivityLogTimeSpent.setText("");
+        editTextActivityLogDate.setText("");
+        editTextActivityLogTime.setText("");
+
+        if(editingActivity != null){
+            int selectionPosition = 0;
+
+            for(int i = 0; i < plots.size(); i++){
+                if(plots.get(i).getId() == editingActivity.getPlotId()){
+                    selectionPosition = i;
+                    break;
+                }
+            }
+
+            spinnerPlots.setSelection(selectionPosition);
+        }else{
+            spinnerPlots.setSelection(0);
+        }
 
         Toast.makeText(this, getText(R.string.cleaned_fields), Toast.LENGTH_SHORT).show();
     }
@@ -207,16 +245,18 @@ public class ActivityLogFormActivity extends AppCompatActivity {
         }
 
         LocalDateTime date = LocalDateTime.of(activityDate, activityTime);
+        PlotEntity plot = (PlotEntity) spinnerPlots.getSelectedItem();
 
         ActivityLogEntity activity;
 
         if(editingActivity == null){
-            activity = new ActivityLogEntity(name, date, timeSpent);
+            activity = new ActivityLogEntity(plot.getId(), name, date, timeSpent);
 
             long id = activityLogDAO.insert(activity);
             activity.setId(id);
         }else{
             activity = editingActivity;
+            activity.setPlotId(plot.getId());
             activity.setName(name);
             activity.setTimeSpent(timeSpent);
             activity.setDate(date);
