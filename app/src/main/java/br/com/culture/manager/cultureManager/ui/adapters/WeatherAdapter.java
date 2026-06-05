@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 import br.com.culture.manager.cultureManager.R;
 import br.com.culture.manager.cultureManager.domain.entities.WeatherEntity;
+import br.com.culture.manager.cultureManager.domain.mappers.LocalDateTimeMappers;
 
 public class WeatherAdapter extends BaseAdapter {
 
@@ -67,7 +68,7 @@ public class WeatherAdapter extends BaseAdapter {
 
         WeatherEntity weather = weatherEntities.get(position);
 
-        holder.textViewDate.setText(weather.getDate().toString());
+        holder.textViewDate.setText(LocalDateTimeMappers.toString(weather.getDate()));
         holder.textViewWeather.setText(weather.getWeather());
         holder.textViewName.setText(weather.getName());
 

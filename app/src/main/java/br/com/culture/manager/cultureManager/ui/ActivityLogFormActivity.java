@@ -22,6 +22,7 @@ import br.com.culture.manager.cultureManager.data.data_access_objects.PlotDAO;
 import br.com.culture.manager.cultureManager.data.db.LocalDatabase;
 import br.com.culture.manager.cultureManager.domain.entities.ActivityLogEntity;
 import br.com.culture.manager.cultureManager.domain.entities.PlotEntity;
+import br.com.culture.manager.cultureManager.domain.mappers.LocalDateMappers;
 
 public class ActivityLogFormActivity extends AppCompatActivity {
 
@@ -124,7 +125,7 @@ public class ActivityLogFormActivity extends AppCompatActivity {
     private void showDatePickerDialog() {
         DatePickerDialog.OnDateSetListener listener = (datePicker, year, month, day) -> {
             activityDate = LocalDate.of(year, month + 1, day);
-            editTextActivityLogDate.setText(activityDate.toString());
+            editTextActivityLogDate.setText(LocalDateMappers.toString(activityDate));
         };
 
         if(activityDate == null){

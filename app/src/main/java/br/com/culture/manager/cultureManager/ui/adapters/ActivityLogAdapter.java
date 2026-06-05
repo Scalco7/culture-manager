@@ -10,6 +10,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import br.com.culture.manager.cultureManager.R;
+import br.com.culture.manager.cultureManager.domain.mappers.LocalDateTimeMappers;
 import br.com.culture.manager.cultureManager.ui.models.ActivityLogModel;
 
 public class ActivityLogAdapter extends BaseAdapter {
@@ -66,7 +67,7 @@ public class ActivityLogAdapter extends BaseAdapter {
 
         holder.textViewName.setText(activityLog.getName());
         holder.textViewTimeSpent.setText(activityLog.getTimeSpent());
-        holder.textViewDate.setText(activityLog.getDate().toString());
+        holder.textViewDate.setText(LocalDateTimeMappers.toString(activityLog.getDate()));
         holder.textViewPlot.setText(activityLog.getPlot().getName());
 
         return view;
