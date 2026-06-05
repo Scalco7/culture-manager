@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import java.time.LocalDateTime;
@@ -30,6 +31,13 @@ public class ActivityLogEntity {
     public ActivityLogEntity(long id, long plotId, @NonNull String name, @NonNull LocalDateTime date, @NonNull Integer timeSpent) {
         this.id = id;
         this.plotId = plotId;
+        this.name = name;
+        this.date = date;
+        this.timeSpent = timeSpent;
+    }
+
+    @Ignore
+    public ActivityLogEntity(@NonNull String name, @NonNull LocalDateTime date, @NonNull Integer timeSpent) {
         this.name = name;
         this.date = date;
         this.timeSpent = timeSpent;

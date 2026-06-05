@@ -110,10 +110,14 @@ public class ActivityLogActivity extends AppCompatActivity {
                         return;
                     }
 
-//                    long id = bundle.getLong(WeatherFormActivity.ID_KEY);
-//
-//                    ActivityLogEntity activity = activityLogDAO.getById(id);
-//                    activityLogs.add(activity);
+                    long id = bundle.getLong(ActivityLogFormActivity.ID_KEY);
+
+                    ActivityLogEntity activity = activityLogDAO.getById(id);
+
+                    PlotEntity plot = plotDAO.getById(activity.getPlotId());
+                    ActivityLogModel logModel = ActivityLogMapper.entityToModel(activity, plot);
+
+                    activityLogs.add(logModel);
 
                     adapter.notifyDataSetChanged();
                 }
@@ -143,10 +147,14 @@ public class ActivityLogActivity extends AppCompatActivity {
                         return;
                     }
 
-//                    long id = bundle.getLong(WeatherFormActivity.ID_KEY);
-//
-//                    ActivityLogEntity activity = activityLogDAO.getById(id);
-//                    activityLogs.add(activity);
+                    long id = bundle.getLong(ActivityLogFormActivity.ID_KEY);
+
+                    ActivityLogEntity activity = activityLogDAO.getById(id);
+
+                    PlotEntity plot = plotDAO.getById(activity.getPlotId());
+                    ActivityLogModel logModel = ActivityLogMapper.entityToModel(activity, plot);
+
+                    activityLogs.add(logModel);
 
                     adapter.notifyDataSetChanged();
                 }

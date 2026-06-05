@@ -60,4 +60,10 @@
     <string name="register_activity">Register Activity</string>
     <string name="edit_activity">Edit Activity</string>
     <string name="minutes">minutes</string>
+    <string name="enter_area">Enter area</string>
+    <string name="enter_time_spent">Enter time spent</string>
+    <string name="enter_date">Enter date</string>
+    <string name="enter_time">Enter time</string>
+    <string name="invalid_time_spent">Invalid time spent</string>
+    <string name="error_updating_activity">w</string>
 </resources>

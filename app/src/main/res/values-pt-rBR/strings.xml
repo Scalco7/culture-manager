@@ -57,4 +57,10 @@
     <string name="register_activity">Registrar Atividade</string>
     <string name="edit_activity">Editar Atividade</string>
     <string name="minutes">minutos</string>
+    <string name="enter_area">Preencha a área</string>
+    <string name="enter_time_spent">Preencha o tempo gasto</string>
+    <string name="enter_date">Preencha a data</string>
+    <string name="enter_time">Preencha o horário</string>
+    <string name="invalid_time_spent">Tempo gasto inválido</string>
+    <string name="error_updating_activity">Erro atualizando a atividade</string>
 </resources>

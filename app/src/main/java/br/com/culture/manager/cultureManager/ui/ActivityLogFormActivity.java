@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 
@@ -32,7 +33,7 @@ public class ActivityLogFormActivity extends AppCompatActivity {
     public static final int SCREEN_MODE_REGISTER = 0;
 
     private EditText editTextActivityLogName;
-    private EditText editTextActivityLogTimeSent;
+    private EditText editTextActivityLogTimeSpent;
     private EditText editTextActivityLogDate;
     private EditText editTextActivityLogTime;
     private LocalDate activityDate;
@@ -51,7 +52,7 @@ public class ActivityLogFormActivity extends AppCompatActivity {
         setContentView(R.layout.activity_activity_log_form);
 
         editTextActivityLogName = findViewById(R.id.editTextActivityLogName);
-        editTextActivityLogTimeSent = findViewById(R.id.editTextActivityLogTimeSpent);
+        editTextActivityLogTimeSpent = findViewById(R.id.editTextActivityLogTimeSpent);
         editTextActivityLogDate = findViewById(R.id.editTextActivityLogDate);
         editTextActivityLogTime = findViewById(R.id.editTextActivityLogTime);
 
@@ -92,7 +93,7 @@ public class ActivityLogFormActivity extends AppCompatActivity {
                 LocalTime time = editingActivity.getDate().toLocalTime();
 
                 editTextActivityLogName.setText(name);
-                editTextActivityLogTimeSent.setText(timeSpent);
+                editTextActivityLogTimeSpent.setText(timeSpent);
                 editTextActivityLogDate.setText(date.toString());
                 editTextActivityLogDate.setText(time.toString());
             }
@@ -167,52 +168,72 @@ public class ActivityLogFormActivity extends AppCompatActivity {
 
     private void cleanFields() {
         editTextActivityLogName.setText("");
-        editTextActivityLogTimeSent.setText("");
+        editTextActivityLogTimeSpent.setText("");
 
         Toast.makeText(this, getText(R.string.cleaned_fields), Toast.LENGTH_SHORT).show();
     }
 
     private void onSave() {
-//        String name = editTextPlotFormName.getText().toString();
-//        String areaText = editTextPlotFormArea.getText().toString();
+        String name = editTextActivityLogName.getText().toString();
+        String timeSpentText = editTextActivityLogTimeSpent.getText().toString();
+        String dateText = editTextActivityLogDate.getText().toString();
+        String timeText = editTextActivityLogTime.getText().toString();
 
-//        if(name.isEmpty()){
-//            Toast.makeText(this, getText(R.string.fill_with_name), Toast.LENGTH_SHORT).show();
-//            return;
-//        }
-//
-//        if(areaText.isEmpty()){
-//            Toast.makeText(this, getText(R.string.fill_with_name), Toast.LENGTH_SHORT).show();
-//            return;
-//        }
+        if(name.isEmpty()){
+            Toast.makeText(this, getText(R.string.fill_with_name), Toast.LENGTH_SHORT).show();
+            return;
+        }
 
-//        Float area = Float.parseFloat(areaText);
-//
-//        PlotEntity plot;
-//
-//        if(editingPlot == null){
-//            plot = new PlotEntity(name, area);
-//
-//            long id = plotDAO.insert(plot);
-//            plot.setId(id);
-//        }else{
-//            plot = editingPlot;
-//            plot.setName(name);
-//            plot.setAreaSize(area);
-//
-//            int rowsUpdated = plotDAO.update(editingPlot);
-//
-//            if(rowsUpdated <= 0){
-//                Toast.makeText(this, getText(R.string.error_updating_plot), Toast.LENGTH_SHORT).show();
-//                return;
-//            }
-//        }
-//
-//        Intent returnIntent = new Intent();
-//
-//        returnIntent.putExtra(ID_KEY, plot.getId());
-//
-//        setResult(RESULT_OK, returnIntent);
-//        finish();
+        if(timeSpentText.isEmpty()){
+            Toast.makeText(this, getText(R.string.enter_time_spent), Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if(dateText.isEmpty()){
+            Toast.makeText(this, getText(R.string.enter_date), Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if(timeText.isEmpty()){
+            Toast.makeText(this, getText(R.string.enter_time), Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        int timeSpent = Integer.parseInt(timeSpentText);
+
+        if(timeSpent <= 0){
+            Toast.makeText(this, getText(R.string.invalid_time_spent), Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        LocalDateTime date = LocalDateTime.of(activityDate, activityTime);
+
+        ActivityLogEntity activity;
+
+        if(editingActivity == null){
+            activity = new ActivityLogEntity(name, date, timeSpent);
+
+            long id = activityLogDAO.insert(activity);
+            activity.setId(id);
+        }else{
+            activity = editingActivity;
+            activity.setName(name);
+            activity.setTimeSpent(timeSpent);
+            activity.setDate(date);
+
+            int rowsUpdated = activityLogDAO.update(activity);
+
+            if(rowsUpdated <= 0){
+                Toast.makeText(this, getText(R.string.error_updating_activity), Toast.LENGTH_SHORT).show();
+                return;
+            }
+        }
+
+        Intent returnIntent = new Intent();
+
+        returnIntent.putExtra(ID_KEY, activity.getId());
+
+        setResult(RESULT_OK, returnIntent);
+        finish();
     }
 }

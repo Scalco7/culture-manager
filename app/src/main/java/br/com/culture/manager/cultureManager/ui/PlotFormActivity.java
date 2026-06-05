@@ -102,7 +102,7 @@ public class PlotFormActivity extends AppCompatActivity {
         }
 
         if(areaText.isEmpty()){
-            Toast.makeText(this, getText(R.string.fill_with_name), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getText(R.string.enter_area), Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -120,7 +120,7 @@ public class PlotFormActivity extends AppCompatActivity {
             plot.setName(name);
             plot.setAreaSize(area);
 
-            int rowsUpdated = plotDAO.update(editingPlot);
+            int rowsUpdated = plotDAO.update(plot);
 
             if(rowsUpdated <= 0){
                 Toast.makeText(this, getText(R.string.error_updating_plot), Toast.LENGTH_SHORT).show();
