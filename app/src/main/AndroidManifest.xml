@@ -12,6 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CultureManager">
         <activity
+            android:name=".ui.ActivityLogFormActivity"
+            android:exported="false"
+            android:parentActivityName=".ui.ActivityLogActivity"/>
+        <activity
             android:name=".ui.ActivityLogActivity"
             android:exported="false"
             android:parentActivityName=".ui.HomeActivity" />

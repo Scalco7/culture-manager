@@ -243,18 +243,18 @@ public class ActivityLogActivity extends AppCompatActivity {
         actionMode.finish();
     }
     private void goToEdit(){
-        Intent intent = new Intent(this, PlotFormActivity.class);
+        Intent intent = new Intent(this, ActivityLogFormActivity.class);
 
         ActivityLogModel selectedActivity = activityLogs.get(selectedPosition);
 
-//        intent.putExtra(PlotFormActivity.SCREEN_MODE_KEY, PlotFormActivity.SCREEN_MODE_EDIT);
-//        intent.putExtra(PlotFormActivity.ID_KEY, selectedActivity.getId());
+        intent.putExtra(ActivityLogFormActivity.SCREEN_MODE_KEY, ActivityLogFormActivity.SCREEN_MODE_EDIT);
+        intent.putExtra(ActivityLogFormActivity.ID_KEY, selectedActivity.getId());
         launcherEditActivity.launch(intent);
     }
 
     private void goToCreate(){
-        Intent intent = new Intent(this, PlotFormActivity.class);
-//        intent.putExtra(PlotFormActivity.SCREEN_MODE_KEY, PlotFormActivity.SCREEN_MODE_REGISTER);
+        Intent intent = new Intent(this, ActivityLogFormActivity.class);
+        intent.putExtra(ActivityLogFormActivity.SCREEN_MODE_KEY, ActivityLogFormActivity.SCREEN_MODE_REGISTER);
         launcherRegisterActivity.launch(intent);
     }
 }

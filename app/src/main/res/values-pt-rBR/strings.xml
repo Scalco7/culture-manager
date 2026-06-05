@@ -12,7 +12,7 @@
     <string name="clear">Limpar</string>
     <string name="save">Salvar</string>
     <string name="confirm">Confirmo</string>
-    <string name="clean_weather_fields">Campos limpos</string>
+    <string name="cleaned_fields">Campos limpos</string>
     <string name="wind_strength">Força do vento</string>
     <string name="strong">Forte</string>
     <string name="moderate">Moderado</string>
@@ -28,7 +28,7 @@
     <string name="fill_with_name">Preencha o nome</string>
     <string name="select_wind_strength">Selecione a força do vento</string>
     <string name="select_weather">Selecione o clima</string>
-    <string name="confim_the_declaration">Confirme a declaração</string>
+    <string name="confirm_the_declaration">Confirme a declaração</string>
     <string name="hello">Olá, bem-vindo</string>
     <string name="hello_phrase">Vamos começar dando um nome para a sua fazenda</string>
     <string name="farm_name">Nome da Fazenda</string>
@@ -52,4 +52,9 @@
     <string name="time_spent">Tempo gasto</string>
     <string name="remove_activity">Remover Atividade</string>
     <string name="remove_activity_confirm_message">Você deseja remover o registro de atividade?</string>
+    <string name="date">Data</string>
+    <string name="time">Horário</string>
+    <string name="register_activity">Registrar Atividade</string>
+    <string name="edit_activity">Editar Atividade</string>
+    <string name="minutes">minutos</string>
 </resources>

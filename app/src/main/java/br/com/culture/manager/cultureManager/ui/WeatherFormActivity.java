@@ -119,7 +119,7 @@ public class WeatherFormActivity extends AppCompatActivity {
         checkBoxConfirm.setChecked(false);
         spinnerWindStrength.setSelection(0);
 
-        Toast.makeText(this, getText(R.string.clean_weather_fields), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, getText(R.string.cleaned_fields), Toast.LENGTH_SHORT).show();
     }
 
     public void onSave() {
@@ -166,7 +166,7 @@ public class WeatherFormActivity extends AppCompatActivity {
         }
 
         if (!checkBoxConfirm.isChecked()) {
-            Toast.makeText(this, getText(R.string.confim_the_declaration), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getText(R.string.confirm_the_declaration), Toast.LENGTH_SHORT).show();
             return;
         }
 

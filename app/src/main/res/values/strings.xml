@@ -12,7 +12,7 @@
     <string name="clear">Clear</string>
     <string name="save">Save</string>
     <string name="confirm">Confirm</string>
-    <string name="clean_weather_fields">Cleaned fields</string>
+    <string name="cleaned_fields">Cleaned fields</string>
     <string name="wind_strength">Wind strength</string>
     <string name="strong">Strong</string>
     <string name="moderate">Moderate</string>
@@ -29,7 +29,7 @@
     <string name="edit">Edit</string>
     <string name="olders">Olders</string>
     <string name="fill_with_name">Enter name</string>
-    <string name="confim_the_declaration">Confirm the statement</string>
+    <string name="confirm_the_declaration">Confirm the statement</string>
     <string name="select_weather">Select the weather</string>
     <string name="select_wind_strength">Select wind strength</string>
     <string name="continue_text">Continue</string>
@@ -55,5 +55,9 @@
     <string name="time_spent">Time spent</string>
     <string name="remove_activity">Remove Activity Log</string>
     <string name="remove_activity_confirm_message">Do you want to remove the activity log?</string>
-
+    <string name="time">Time</string>
+    <string name="date">Date</string>
+    <string name="register_activity">Register Activity</string>
+    <string name="edit_activity">Edit Activity</string>
+    <string name="minutes">minutes</string>
 </resources>

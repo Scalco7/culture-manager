@@ -89,7 +89,7 @@ public class PlotFormActivity extends AppCompatActivity {
         editTextPlotFormName.setText("");
         editTextPlotFormArea.setText("");
 
-        Toast.makeText(this, getText(R.string.clean_weather_fields), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, getText(R.string.cleaned_fields), Toast.LENGTH_SHORT).show();
     }
 
     public void onSave(){
